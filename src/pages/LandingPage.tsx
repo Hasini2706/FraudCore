@@ -6,152 +6,142 @@ import {
   Activity,
   ArrowRight,
   CheckCircle2,
-  Lock,
-  Zap,
   PhoneCall,
   Brain,
   ShieldCheck,
   AlertOctagon,
-  Eye,
-  FileText,
   Building2,
   Globe,
   Database,
-  Cpu,
   Share2,
-  Users,
-  Award
+  Users
 } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
   return (
-    <div className="relative min-h-screen bg-cyber-radial bg-cyber-grid pb-20">
+    <div className="relative min-h-screen bg-cyber-radial bg-cyber-grid pb-20 select-none text-[#F8FAFC]">
       {/* Hero Section */}
-      <section className="relative pt-12 lg:pt-20 pb-20 overflow-hidden">
+      <section className="relative pt-12 lg:pt-16 pb-16 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Hero Text */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold tracking-wide">
-                <ShieldAlert className="w-4 h-4 animate-pulse text-cyan-400" />
-                <span className="font-space">ENTERPRISE CYBER DEFENSE ENGINE v2.4</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00BFA6]/5 border border-[#00BFA6]/20 text-[#00BFA6] text-xs font-semibold tracking-wide shadow-sm font-space">
+                <ShieldAlert className="w-4 h-4 text-[#00BFA6]" />
+                <span>NPCI GATEWAY COGNITIVE FILTER v2.4</span>
               </div>
 
               {/* Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1] font-manrope">
-                AI-Powered Digital <br className="hidden sm:inline" />
-                <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">
-                  Public Safety Intelligence
-                </span>{' '}
-                Platform
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.15] font-manrope font-medium">
+                Enterprise Cyber Banking <br className="hidden sm:inline" />
+                <span className="text-[#00BFA6]">
+                  Intelligence Platform
+                </span>
               </h1>
 
               {/* Subtitle */}
-              <p className="text-lg sm:text-xl text-slate-300 max-w-2xl font-normal leading-relaxed">
-                Prevent Digital Arrest Scams using Explainable AI, NLP Intelligence, Risk Scoring and Real-Time Threat Analysis.
+              <p className="text-base sm:text-lg text-[#CBD5E1] max-w-2xl font-normal leading-relaxed">
+                Mitigate high-risk digital arrest extortion and payment routing scams in real-time. FraudCore provides auditable transactional analysis, NLP coercion scoring, and instant banking blocks.
               </p>
 
-              <p className="text-xs sm:text-sm text-slate-400 max-w-xl">
-                Built to protect citizens and empower police cyber cells against coercive video surveillance, fake CBI/ED warrants, and illegal money transfers.
+              <p className="text-xs sm:text-sm text-[#CBD5E1]/60 max-w-xl">
+                Designed for RBI cyber teams, merchant banking nodes, SWIFT clearing blocks, and state crime operations. Protect deposits and block illicit accounts instantly.
               </p>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
                 <NavLink
                   to="/analyzer"
-                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:to-cyan-400 text-slate-950 font-extrabold text-sm uppercase tracking-wider shadow-2xl shadow-cyan-500/25 flex items-center justify-center gap-3 transition transform active:scale-95"
+                  className="w-full sm:w-auto px-7 py-3 rounded bg-[#00BFA6] hover:bg-[#00BFA6]/90 text-[#0B1220] font-bold text-xs uppercase tracking-wider shadow-md flex items-center justify-center gap-2 transition"
                 >
-                  <Search className="w-5 h-5" />
-                  <span>Start Threat Analysis</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <Search className="w-4 h-4" />
+                  <span>Start Fraud Monitoring</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </NavLink>
 
                 <NavLink
                   to="/dashboard"
-                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-white/10 text-white font-bold text-sm flex items-center justify-center gap-3 transition"
+                  className="w-full sm:w-auto px-7 py-3 rounded bg-[#1A2332] hover:bg-[#1A2332]/85 border border-white/5 text-[#F8FAFC] font-bold text-xs flex items-center justify-center gap-2 transition"
                 >
-                  <Activity className="w-5 h-5 text-cyan-400" />
-                  <span>View Intelligence Dashboard</span>
+                  <Activity className="w-4 h-4 text-[#00BFA6]" />
+                  <span>Security Command Center</span>
                 </NavLink>
               </div>
 
               {/* Hero Footer Badges */}
-              <div className="pt-6 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-slate-400 border-t border-white/10">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  <span>XAI Explainable NLP</span>
+              <div className="pt-6 flex flex-wrap items-center justify-center lg:justify-start gap-5 text-xs text-[#CBD5E1] border-t border-white/5">
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
+                  <span>Auditable Escrow Analysis</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Globe className="w-4 h-4 text-cyan-400" />
-                  <span>SOC Radar Integration</span>
+                <div className="flex items-center gap-1.5">
+                  <Globe className="w-4 h-4 text-[#00BFA6]" />
+                  <span>NPCI Network Feeds</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <PhoneCall className="w-4 h-4 text-amber-400" />
-                  <span>Helpline 1930 Direct Call</span>
+                <div className="flex items-center gap-1.5">
+                  <PhoneCall className="w-4 h-4 text-[#F59E0B]" />
+                  <span>Helpline 1930 Integration</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Hero Visual: 3D/Glass Dashboard Mockup & Live Cyber Radar */}
+            {/* Right Hero Visual: Dark Banking Dashboard Mockup */}
             <div className="lg:col-span-5 flex justify-center relative">
-              {/* Decorative floating background glow */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-3xl opacity-20 blur-3xl"></div>
-
-              <div className="relative w-full max-w-md glass-panel rounded-2xl border border-cyan-500/30 p-6 shadow-2xl bg-slate-900/95 space-y-5">
+              <div className="relative w-full max-w-md bg-[#1A2332] border border-white/5 rounded-xl p-6 shadow-md space-y-5">
                 {/* Header */}
-                <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                  <div className="flex items-center gap-2.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
-                      CYBER THREAT RADAR
+                <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#EF4444] animate-pulse"></span>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#F8FAFC]">
+                      TRANSACTION RADAR INTERCEPT
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30 font-bold">
-                    P1 - CRITICAL INTERCEPT
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#EF4444]/10 text-[#EF4444] border border-[#EF4444]/20 font-bold">
+                    P1 - ESCROW LOCKED
                   </span>
                 </div>
 
                 {/* Radar Sweep Display */}
-                <div className="relative flex flex-col items-center justify-center py-6 rounded-xl bg-[#030611] border border-slate-800 overflow-hidden">
-                  <div className="w-36 h-36 rounded-full border border-cyan-500/20 flex items-center justify-center relative">
-                    <div className="w-24 h-24 rounded-full border border-cyan-500/30 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full border border-cyan-500/40 flex items-center justify-center">
-                        <AlertOctagon className="w-6 h-6 text-red-500 animate-pulse" />
+                <div className="relative flex flex-col items-center justify-center py-6 rounded-xl bg-[#111827] border border-white/5 overflow-hidden">
+                  <div className="w-32 h-32 rounded-full border border-[#00BFA6]/10 flex items-center justify-center relative">
+                    <div className="w-20 h-20 rounded-full border border-[#00BFA6]/25 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full border border-[#00BFA6]/30 flex items-center justify-center">
+                        <AlertOctagon className="w-5 h-5 text-[#EF4444]" />
                       </div>
                     </div>
                     {/* Rotating radar line */}
                     <div className="absolute inset-0 origin-center animate-radar">
-                      <div className="w-1/2 h-0.5 bg-gradient-to-r from-transparent to-cyan-400"></div>
+                      <div className="w-1/2 h-0.5 bg-gradient-to-r from-transparent to-[#00BFA6]/35"></div>
                     </div>
                   </div>
 
                   <div className="mt-4 text-center space-y-1">
-                    <div className="text-xs font-mono font-bold text-red-400 tracking-wider">
-                      THREAT SCORE: 97% (DIGITAL ARREST)
+                    <div className="text-xs font-mono font-bold text-[#EF4444] tracking-wider">
+                      COERCION PROBABILITY: 97%
                     </div>
-                    <div className="text-[11px] text-slate-400 font-mono">
-                      Impersonating: CBI Legal Department
+                    <div className="text-[10px] text-[#CBD5E1]/60 font-mono">
+                      Target Vector: CBI Impersonation
                     </div>
                   </div>
                 </div>
 
                 {/* Floating Analytics Card Preview */}
                 <div className="space-y-2 text-xs">
-                  <div className="p-2.5 rounded-xl bg-[#030611] border border-slate-800 flex items-center justify-between">
-                    <span className="text-slate-400">Explainability Score</span>
-                    <span className="text-cyan-400 font-mono font-bold">96 / 100</span>
+                  <div className="p-2.5 rounded-lg bg-[#111827] border border-white/5 flex items-center justify-between">
+                    <span className="text-[#CBD5E1]/70 font-medium">Explainability Index</span>
+                    <span className="text-[#00BFA6] font-mono font-bold">96 / 100</span>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-[#030611] border border-slate-800 flex items-center justify-between">
-                    <span className="text-slate-400">Coercion Signal</span>
-                    <span className="text-red-400 font-mono font-bold">"Do Not Disconnect"</span>
+                  <div className="p-2.5 rounded-lg bg-[#111827] border border-white/5 flex items-center justify-between">
+                    <span className="text-[#CBD5E1]/70 font-medium">Flagged Account Node</span>
+                    <span className="text-[#EF4444] font-mono font-bold">"ICICI 9012"</span>
                   </div>
                 </div>
 
                 {/* Quick Action */}
                 <NavLink
                   to="/analyzer"
-                  className="w-full py-3 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 text-xs font-bold flex items-center justify-center gap-2 transition"
+                  className="w-full py-2.5 rounded bg-[#00BFA6]/10 hover:bg-[#00BFA6]/15 border border-[#00BFA6]/20 text-[#00BFA6] text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <Search className="w-4 h-4" />
                   <span>Analyze Suspicious Transcript</span>
@@ -162,151 +152,151 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Trusted By Section */}
-      <section className="py-10 bg-[#030611]/80 border-y border-white/10">
+      {/* Info Sections */}
+      <section className="py-8 bg-[#111827] border-y border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-xs font-mono uppercase tracking-widest text-slate-400 mb-6 font-semibold">
-            Integrable Architecture for Cyber Defense & Public Safety Institutions
+          <p className="text-center text-[10px] font-mono uppercase tracking-widest text-[#CBD5E1]/60 mb-5 font-semibold">
+            Gateway Integration Networks
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-slate-300 text-xs font-semibold">
-            <div className="p-4 rounded-xl glass-panel border border-white/5 flex items-center justify-center gap-2">
-              <Building2 className="w-4 h-4 text-cyan-400" />
-              <span>Government Agencies (Demo)</span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-[#CBD5E1] text-xs font-semibold">
+            <div className="p-3 bg-[#1A2332] border border-white/5 rounded-xl flex items-center justify-center gap-2">
+              <Building2 className="w-4 h-4 text-[#00BFA6]" />
+              <span>Reserve Gateways</span>
             </div>
-            <div className="p-4 rounded-xl glass-panel border border-white/5 flex items-center justify-center gap-2">
-              <Database className="w-4 h-4 text-blue-400" />
-              <span>Financial Banking Units</span>
+            <div className="p-3 bg-[#1A2332] border border-white/5 rounded-xl flex items-center justify-center gap-2">
+              <Database className="w-4 h-4 text-[#1D4ED8]" />
+              <span>Banking Grids</span>
             </div>
-            <div className="p-4 rounded-xl glass-panel border border-white/5 flex items-center justify-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>State Cyber Police Cells</span>
+            <div className="p-3 bg-[#1A2332] border border-white/5 rounded-xl flex items-center justify-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#22C55E]" />
+              <span>Clearing Hubs</span>
             </div>
-            <div className="p-4 rounded-xl glass-panel border border-white/5 flex items-center justify-center gap-2">
-              <PhoneCall className="w-4 h-4 text-amber-400" />
-              <span>Emergency Response 1930</span>
+            <div className="p-3 bg-[#1A2332] border border-white/5 rounded-xl flex items-center justify-center gap-2">
+              <PhoneCall className="w-4 h-4 text-[#F59E0B]" />
+              <span>Helpline 1930 Bridge</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Statistics Section (Animated Counters Style) */}
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="p-6 rounded-2xl glass-panel text-center border border-white/10 space-y-2">
-            <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight">
-              ₹1,776 <span className="text-cyan-400 text-xl">Cr</span>
+      {/* Statistics Section */}
+      <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="bg-[#1A2332] p-5 rounded-xl border border-white/5 text-center space-y-1 shadow-md">
+            <div className="text-2xl sm:text-3xl font-extrabold text-[#F8FAFC] font-mono tracking-tight">
+              ₹1,776 <span className="text-[#00BFA6] text-base">Cr</span>
             </div>
-            <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">
-              Fraud Prevented (Demo)
+            <div className="text-[10px] text-[#CBD5E1]/60 uppercase font-bold tracking-wider font-space">
+              Fraud Saved (Demo)
             </div>
           </div>
 
-          <div className="p-6 rounded-2xl glass-panel text-center border border-white/10 space-y-2">
-            <div className="text-3xl sm:text-4xl font-extrabold text-cyan-400 font-mono tracking-tight">
+          <div className="bg-[#1A2332] p-5 rounded-xl border border-white/5 text-center space-y-1 shadow-md">
+            <div className="text-2xl sm:text-3xl font-extrabold text-[#00BFA6] font-mono tracking-tight">
               98.2%
             </div>
-            <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">
-              AI Detection Accuracy
+            <div className="text-[10px] text-[#CBD5E1]/60 uppercase font-bold tracking-wider font-space">
+              AI Detection Precision
             </div>
           </div>
 
-          <div className="p-6 rounded-2xl glass-panel text-center border border-white/10 space-y-2">
-            <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight">
+          <div className="bg-[#1A2332] p-5 rounded-xl border border-white/5 text-center space-y-1 shadow-md">
+            <div className="text-2xl sm:text-3xl font-extrabold text-[#F8FAFC] font-mono tracking-tight">
               50,000+
             </div>
-            <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">
-              Threats Analysed
+            <div className="text-[10px] text-[#CBD5E1]/60 uppercase font-bold tracking-wider font-space">
+              Threat Vectors Analysed
             </div>
           </div>
 
-          <div className="p-6 rounded-2xl glass-panel text-center border border-white/10 space-y-2">
-            <div className="text-3xl sm:text-4xl font-extrabold text-emerald-400 font-mono tracking-tight">
+          <div className="bg-[#1A2332] p-5 rounded-xl border border-white/5 text-center space-y-1 shadow-md">
+            <div className="text-2xl sm:text-3xl font-extrabold text-[#22C55E] font-mono tracking-tight">
               24/7
             </div>
-            <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">
-              AI Cyber Monitoring
+            <div className="text-[10px] text-[#CBD5E1]/60 uppercase font-bold tracking-wider font-space">
+              Active Security Guard
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-[#030611]/50 border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            <h2 className="text-xs font-mono font-bold uppercase tracking-widest text-cyan-400">
+      <section className="py-12 bg-[#111827] border-y border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="text-center max-w-3xl mx-auto space-y-2">
+            <h2 className="text-[10px] font-bold uppercase tracking-widest text-[#00BFA6] font-space">
               PLATFORM CAPABILITIES
             </h2>
-            <h3 className="text-3xl font-extrabold text-white font-manrope">
-              Enterprise Cyber Intelligence Features
+            <h3 className="text-2xl font-extrabold text-[#F8FAFC] font-manrope font-medium">
+              Enterprise Cyber Banking Safety Features
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Feature 1 */}
-            <div className="p-6 rounded-2xl glass-panel-interactive space-y-3">
-              <div className="p-3 w-fit rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
-                <ShieldAlert className="w-6 h-6" />
+            <div className="p-5 bg-[#1A2332] border border-white/5 rounded-xl space-y-2.5 shadow-md">
+              <div className="p-2 w-fit rounded bg-[#00BFA6]/10 border border-[#00BFA6]/20 text-[#00BFA6]">
+                <ShieldAlert className="w-5 h-5" />
               </div>
-              <h4 className="text-lg font-bold text-white">Digital Arrest Detection</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Matches calls against known templates of fake CBI, ED, Police, and TRAI telecom disconnection extortion.
+              <h4 className="text-base font-bold text-[#F8FAFC]">Escrow Threat Diagnostics</h4>
+              <p className="text-xs text-[#CBD5E1]/70 leading-relaxed">
+                Flags incoming transcripts mimicking legal subpoenas, fake Supreme Court notices, or regulatory orders.
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="p-6 rounded-2xl glass-panel-interactive space-y-3">
-              <div className="p-3 w-fit rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400">
-                <Brain className="w-6 h-6" />
+            <div className="p-5 bg-[#1A2332] border border-white/5 rounded-xl space-y-2.5 shadow-md">
+              <div className="p-2 w-fit rounded bg-[#1D4ED8]/10 border border-[#1D4ED8]/20 text-[#00BFA6]">
+                <Brain className="w-5 h-5" />
               </div>
-              <h4 className="text-lg font-bold text-white">Explainable AI (XAI)</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Auditable breakdown showing exact evidence sentences, coercion sentiment meters, and confidence rationale.
+              <h4 className="text-base font-bold text-[#F8FAFC]">Explainable AI Engine</h4>
+              <p className="text-xs text-[#CBD5E1]/70 leading-relaxed">
+                Delivers visual breakdown reports featuring sentence threat highlights and coercion score justifications.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="p-6 rounded-2xl glass-panel-interactive space-y-3">
-              <div className="p-3 w-fit rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400">
-                <Activity className="w-6 h-6" />
+            <div className="p-5 bg-[#1A2332] border border-white/5 rounded-xl space-y-2.5 shadow-md">
+              <div className="p-2 w-fit rounded bg-[#F59E0B]/10 border border-[#F59E0B]/20 text-[#F59E0B]">
+                <Activity className="w-5 h-5" />
               </div>
-              <h4 className="text-lg font-bold text-white">Threat Intelligence Engine</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Real-time threat feeds analyzing fake legal notices, counterfeit Supreme Court warrants, and proxy phone numbers.
+              <h4 className="text-base font-bold text-[#F8FAFC]">Threat Intelligence Logs</h4>
+              <p className="text-xs text-[#CBD5E1]/70 leading-relaxed">
+                Connects to real-time incident queues analyzing suspect bank coordinates, fake domains, and VoIP tags.
               </p>
             </div>
 
             {/* Feature 4 */}
-            <div className="p-6 rounded-2xl glass-panel-interactive space-y-3">
-              <div className="p-3 w-fit rounded-xl bg-red-500/10 border border-red-500/30 text-red-400">
-                <Share2 className="w-6 h-6" />
+            <div className="p-5 bg-[#1A2332] border border-white/5 rounded-xl space-y-2.5 shadow-md">
+              <div className="p-2 w-fit rounded bg-[#EF4444]/10 border border-[#EF4444]/20 text-[#EF4444]">
+                <Share2 className="w-5 h-5" />
               </div>
-              <h4 className="text-lg font-bold text-white">Fraud Network Analysis</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Traces relationships between suspect bank accounts, fake UPI handles, and international proxy call centers.
+              <h4 className="text-base font-bold text-[#F8FAFC]">Fraud Network Mapping</h4>
+              <p className="text-xs text-[#CBD5E1]/70 leading-relaxed">
+                Links suspect digital identifiers and traces coercive proxy call centers for law enforcement cells.
               </p>
             </div>
 
             {/* Feature 5 */}
-            <div className="p-6 rounded-2xl glass-panel-interactive space-y-3">
-              <div className="p-3 w-fit rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
-                <Globe className="w-6 h-6" />
+            <div className="p-5 bg-[#1A2332] border border-white/5 rounded-xl space-y-2.5 shadow-md">
+              <div className="p-2 w-fit rounded bg-[#00BFA6]/10 border border-[#00BFA6]/20 text-[#00BFA6]">
+                <Globe className="w-5 h-5" />
               </div>
-              <h4 className="text-lg font-bold text-white">Geo Intelligence & GIS Mapping</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Maps regional incident density across major metros (Delhi, Mumbai, Bengaluru) for targeted law enforcement action.
+              <h4 className="text-base font-bold text-[#F8FAFC]">GIS Telemetry & Mapping</h4>
+              <p className="text-xs text-[#CBD5E1]/70 leading-relaxed">
+                Identifies geographical threat hotspots across metropolitan circles for targeted intercept strategies.
               </p>
             </div>
 
             {/* Feature 6 */}
-            <div className="p-6 rounded-2xl glass-panel-interactive space-y-3">
-              <div className="p-3 w-fit rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400">
-                <Users className="w-6 h-6" />
+            <div className="p-5 bg-[#1A2332] border border-white/5 rounded-xl space-y-2.5 shadow-md">
+              <div className="p-2 w-fit rounded bg-[#CBD5E1]/10 border border-white/5 text-[#CBD5E1]">
+                <Users className="w-5 h-5" />
               </div>
-              <h4 className="text-lg font-bold text-white">Citizen Protection Protocols</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Direct integration with National Helpline 1930 and step-by-step emergency guidance during high-stress calls.
+              <h4 className="text-base font-bold text-[#F8FAFC]">Safety Guidelines Portal</h4>
+              <p className="text-xs text-[#CBD5E1]/70 leading-relaxed">
+                Equips citizens with immediate safety actions, interactive myth vs reality, and quick 1930 dialing.
               </p>
             </div>
           </div>
@@ -314,69 +304,69 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* How It Works Timeline UI */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <h2 className="text-xs font-mono font-bold uppercase tracking-widest text-cyan-400">
+      <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="text-center max-w-3xl mx-auto space-y-2">
+          <h2 className="text-[10px] font-bold uppercase tracking-widest text-[#00BFA6] font-space">
             INTELLIGENCE PIPELINE
           </h2>
-          <h3 className="text-3xl font-extrabold text-white font-manrope">
-            How SentinelAI Protects Citizens in 5 Steps
+          <h3 className="text-2xl font-extrabold text-[#F8FAFC] font-manrope font-medium">
+            How FraudCore Protects Deposits in 5 Steps
           </h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           {/* Step 1 */}
-          <div className="p-5 rounded-2xl glass-panel border border-white/10 flex flex-col justify-between space-y-3">
-            <div className="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-mono font-bold text-sm border border-cyan-500/30">
+          <div className="p-5 bg-[#1A2332] border border-white/5 rounded-xl flex flex-col justify-between space-y-3 shadow-md">
+            <div className="w-7 h-7 rounded bg-[#00BFA6]/10 text-[#00BFA6] flex items-center justify-center font-mono font-bold text-xs border border-[#00BFA6]/20">
               01
             </div>
-            <h4 className="text-sm font-bold text-white">Upload Transcript</h4>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              Citizen inputs call text, audio recording, or WhatsApp screenshot.
+            <h4 className="text-xs font-bold text-[#F8FAFC]">Log Incident</h4>
+            <p className="text-[11px] text-[#CBD5E1]/70 leading-relaxed">
+              Upload call transcript details, suspect numbers, or screenshots.
             </p>
           </div>
 
           {/* Step 2 */}
-          <div className="p-5 rounded-2xl glass-panel border border-white/10 flex flex-col justify-between space-y-3">
-            <div className="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-mono font-bold text-sm border border-blue-500/30">
+          <div className="p-5 bg-[#1A2332] border border-white/5 rounded-xl flex flex-col justify-between space-y-3 shadow-md">
+            <div className="w-7 h-7 rounded bg-[#00BFA6]/10 text-[#00BFA6] flex items-center justify-center font-mono font-bold text-xs border border-[#00BFA6]/20">
               02
             </div>
-            <h4 className="text-sm font-bold text-white">AI Understands Language</h4>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              NLP parses coercive phrasing, fear sentiment, and fake authority names.
+            <h4 className="text-xs font-bold text-[#F8FAFC]">NLP Evaluation</h4>
+            <p className="text-[11px] text-[#CBD5E1]/70 leading-relaxed">
+              NLP parses language patterns, urgent demands, and authority labels.
             </p>
           </div>
 
           {/* Step 3 */}
-          <div className="p-5 rounded-2xl glass-panel border border-white/10 flex flex-col justify-between space-y-3">
-            <div className="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-mono font-bold text-sm border border-purple-500/30">
+          <div className="p-5 bg-[#1A2332] border border-white/5 rounded-xl flex flex-col justify-between space-y-3 shadow-md">
+            <div className="w-7 h-7 rounded bg-[#00BFA6]/10 text-[#00BFA6] flex items-center justify-center font-mono font-bold text-xs border border-[#00BFA6]/20">
               03
             </div>
-            <h4 className="text-sm font-bold text-white">Threat Engine</h4>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              Cross-checks against 120+ known Digital Arrest templates.
+            <h4 className="text-xs font-bold text-[#F8FAFC]">Template Check</h4>
+            <p className="text-[11px] text-[#CBD5E1]/70 leading-relaxed">
+              Cross-references inputs against known syndicate extortion archives.
             </p>
           </div>
 
           {/* Step 4 */}
-          <div className="p-5 rounded-2xl glass-panel border border-white/10 flex flex-col justify-between space-y-3">
-            <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-mono font-bold text-sm border border-amber-500/30">
+          <div className="p-5 bg-[#1A2332] border border-white/5 rounded-xl flex flex-col justify-between space-y-3 shadow-md">
+            <div className="w-7 h-7 rounded bg-[#00BFA6]/10 text-[#00BFA6] flex items-center justify-center font-mono font-bold text-xs border border-[#00BFA6]/20">
               04
             </div>
-            <h4 className="text-sm font-bold text-white">Risk Score Generated</h4>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              Computes Threat Score (0-100%) & XAI evidence breakdown.
+            <h4 className="text-xs font-bold text-[#F8FAFC]">Coercion Score</h4>
+            <p className="text-[11px] text-[#CBD5E1]/70 leading-relaxed">
+              Calculates threat probability index and explainable report metrics.
             </p>
           </div>
 
           {/* Step 5 */}
-          <div className="p-5 rounded-2xl glass-panel border border-white/10 flex flex-col justify-between space-y-3">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-sm border border-emerald-500/30">
+          <div className="p-5 bg-[#1A2332] border border-white/5 rounded-xl flex flex-col justify-between space-y-3 shadow-md">
+            <div className="w-7 h-7 rounded bg-[#00BFA6]/10 text-[#00BFA6] flex items-center justify-center font-mono font-bold text-xs border border-[#00BFA6]/20">
               05
             </div>
-            <h4 className="text-sm font-bold text-white">Citizen Warning</h4>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              Issues safety actions, disconnect order, and triggers 1930 report.
+            <h4 className="text-xs font-bold text-[#F8FAFC]">Incident Block</h4>
+            <p className="text-[11px] text-[#CBD5E1]/70 leading-relaxed">
+              Suggests defense actions, alerts state SOC cells, and files reports.
             </p>
           </div>
         </div>

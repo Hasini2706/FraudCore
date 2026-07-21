@@ -1,6 +1,6 @@
 import type { ScamAnalysisResult, EvidenceItem, HighlightedSentence, ScamTimelineStep, SentimentMetrics } from '../types/scam';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.sentinelai.gov.in/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.fraudcore.gov.in/api/v1';
 
 export async function analyzeScam(text: string, forceLiveApi = false): Promise<ScamAnalysisResult> {
   // Option for live FastAPI backend connection

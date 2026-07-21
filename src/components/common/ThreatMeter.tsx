@@ -15,31 +15,50 @@ export const ThreatMeter: React.FC<ThreatMeterProps> = ({
   risk = 'HIGH',
   size = 'md',
 }) => {
-  // Determine color based on score
   const getColor = (s: number) => {
-    if (s >= 85) return { stroke: '#ef4444', bg: 'bg-red-500/10', text: 'text-red-500', border: 'border-red-500/30' };
-    if (s >= 65) return { stroke: '#f59e0b', bg: 'bg-amber-500/10', text: 'text-amber-500', border: 'border-amber-500/30' };
-    if (s >= 40) return { stroke: '#eab308', bg: 'bg-yellow-500/10', text: 'text-yellow-500', border: 'border-yellow-500/30' };
-    return { stroke: '#10b981', bg: 'bg-emerald-500/10', text: 'text-emerald-500', border: 'border-emerald-500/30' };
+    if (s >= 85) {
+      return { 
+        stroke: '#EF4444', 
+        bg: 'bg-red-950/40 text-[#EF4444] border-red-900/40', 
+        text: 'text-[#EF4444]', 
+        border: 'border-red-900/40' 
+      };
+    }
+    if (s >= 65) {
+      return { 
+        stroke: '#F59E0B', 
+        bg: 'bg-amber-950/40 text-[#F59E0B] border-amber-900/40', 
+        text: 'text-[#F59E0B]', 
+        border: 'border-amber-900/40' 
+      };
+    }
+    if (s >= 40) {
+      return { 
+        stroke: '#00BFA6', 
+        bg: 'bg-teal-950/40 text-[#00BFA6] border-teal-900/40', 
+        text: 'text-[#00BFA6]', 
+        border: 'border-teal-900/40' 
+      };
+    }
+    return { 
+      stroke: '#22C55E', 
+      bg: 'bg-green-950/40 text-[#22C55E] border-green-900/40', 
+      text: 'text-[#22C55E]', 
+      border: 'border-green-900/40' 
+    };
   };
 
   const theme = getColor(score);
 
   // SVG Gauge calculations
-  const strokeWidth = size === 'lg' ? 14 : 10;
-  const radius = size === 'lg' ? 70 : 50;
+  const strokeWidth = size === 'lg' ? 12 : 8;
+  const radius = size === 'lg' ? 64 : 44;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (score / 100) * circumference;
   const dim = (radius + strokeWidth) * 2;
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 rounded-2xl glass-card relative overflow-hidden">
-      {/* Subtle background glow */}
-      <div
-        className="absolute inset-0 opacity-20 blur-2xl transition-all duration-700 pointer-events-none"
-        style={{ backgroundColor: theme.stroke }}
-      />
-
+    <div className="flex flex-col items-center justify-center p-5 bg-[#1A2332] border border-white/5 rounded-xl shadow-md relative overflow-hidden select-none">
       <div className="relative flex items-center justify-center">
         <svg width={dim} height={dim} className="transform -rotate-90">
           {/* Background circle */}
@@ -47,11 +66,11 @@ export const ThreatMeter: React.FC<ThreatMeterProps> = ({
             cx={dim / 2}
             cy={dim / 2}
             r={radius}
-            stroke="rgba(255, 255, 255, 0.08)"
+            stroke="rgba(255, 255, 255, 0.05)"
             strokeWidth={strokeWidth}
             fill="transparent"
           />
-          {/* Animated score arc */}
+          {/* Score arc */}
           <circle
             cx={dim / 2}
             cy={dim / 2}
@@ -62,39 +81,39 @@ export const ThreatMeter: React.FC<ThreatMeterProps> = ({
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
             strokeLinecap="round"
-            className="transition-all duration-1000 ease-out"
+            className="transition-all duration-700 ease-out"
           />
         </svg>
 
         {/* Center content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span className={`font-mono font-extrabold tracking-tight ${size === 'lg' ? 'text-4xl' : 'text-3xl'} text-white`}>
+          <span className={`font-mono font-extrabold tracking-tight ${size === 'lg' ? 'text-3xl' : 'text-2xl'} text-[#F8FAFC]`}>
             {score}%
           </span>
-          <span className="text-[10px] uppercase tracking-widest text-slate-400 font-semibold mt-0.5">
-            Threat Score
+          <span className="text-[9px] uppercase tracking-widest text-[#CBD5E1]/60 font-bold mt-0.5">
+            Threat Index
           </span>
         </div>
       </div>
 
       {/* Risk Badge */}
-      <div className={`mt-3 px-4 py-1.5 rounded-full border flex items-center gap-2 ${theme.bg} ${theme.border} ${theme.text}`}>
+      <div className={`mt-4 px-3 py-1 rounded-full border flex items-center gap-1.5 font-bold text-xs uppercase tracking-wide ${theme.bg}`}>
         {score >= 75 ? (
-          <ShieldAlert className="w-4 h-4 animate-bounce" />
+          <ShieldAlert className="w-3.5 h-3.5" />
         ) : score >= 50 ? (
-          <AlertTriangle className="w-4 h-4" />
+          <AlertTriangle className="w-3.5 h-3.5" />
         ) : (
-          <ShieldCheck className="w-4 h-4" />
+          <ShieldCheck className="w-3.5 h-3.5" />
         )}
-        <span className="font-bold text-xs uppercase tracking-wider">
-          Risk Level: {risk}
+        <span>
+          Risk: {risk}
         </span>
       </div>
 
       {/* Confidence Indicator */}
-      <div className="mt-2 text-slate-400 text-xs flex items-center gap-1">
-        <Zap className="w-3 h-3 text-cyan-400" />
-        <span>Confidence: <strong className="text-slate-200">{confidence}%</strong></span>
+      <div className="mt-2.5 text-[#CBD5E1]/60 text-xs flex items-center gap-1">
+        <Zap className="w-3.5 h-3.5 text-[#00BFA6]" />
+        <span>Confidence: <strong className="text-[#F8FAFC] font-bold">{confidence}%</strong></span>
       </div>
     </div>
   );
