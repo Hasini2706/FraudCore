@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Bot, Send, User, ShieldAlert, PhoneCall, Sparkles, AlertTriangle, RefreshCw, Mic, MicOff, Check, Copy } from 'lucide-react';
+import { Bot, Send, User, PhoneCall, Sparkles, AlertTriangle, RefreshCw, Mic, MicOff, Check, Copy } from 'lucide-react';
 import type { ChatMessage } from '../types/scam';
 
 export const AiAssistantPage: React.FC = () => {
@@ -13,7 +13,7 @@ export const AiAssistantPage: React.FC = () => {
     {
       id: '2',
       sender: 'ai',
-      text: `This resembles a Digital Arrest Scam.\n\nGovernment agencies never ask for money over calls.\nDisconnect immediately and report the number.`,
+      text: `This resembles a Digital Arrest Scam.\n\nGovernment agencies never ask for money or account validation transfers over calls.\nDisconnect immediately and request an escrow block.`,
       timestamp: '11:40 AM',
       badge: 'HIGH RISK ALERT',
       threatDetected: true,
@@ -21,7 +21,7 @@ export const AiAssistantPage: React.FC = () => {
         'Disconnect Video Call Now',
         'Do Not Transfer Any Funds',
         'Call Helpline 1930',
-        'Report on cybercrime.gov.in'
+        'Initiate Mule Account Lock'
       ]
     },
   ]);
@@ -99,28 +99,28 @@ export const AiAssistantPage: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-cyber-radial bg-cyber-grid pb-20 pt-6">
+    <div className="relative min-h-screen bg-[#0B1220] pb-20 pt-8 select-none text-[#F8FAFC]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold">
-            <Bot className="w-4 h-4 text-cyan-400" />
-            <span className="font-space">SECURITY COPILOT CHATBOT PROTOCOL</span>
+        <div className="text-center max-w-3xl mx-auto space-y-2 mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00BFA6]/5 border border-[#00BFA6]/20 text-[#00BFA6] text-xs font-semibold shadow-sm font-space">
+            <Bot className="w-3.5 h-3.5 text-[#00BFA6]" />
+            <span>SECURITY COPILOT PROTOCOL</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight font-manrope">
-            AI Cyber Safety Copilot
+          <h1 className="text-2xl font-extrabold text-[#F8FAFC] tracking-tight font-manrope font-medium">
+            AI Safety Copilot
           </h1>
-          <p className="text-slate-300 text-xs sm:text-sm">
-            Conversational AI assistant trained on law enforcement guidelines, fake warrant analysis, and emergency response procedures.
+          <p className="text-[#CBD5E1] text-xs sm:text-sm font-medium">
+            Operational safety assistant trained on law enforcement guidelines, mock fake warrant parameters, and immediate deposit protection.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Left Sidebar: Suggested Prompts & Helplines */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="glass-panel rounded-2xl border border-white/10 p-5 space-y-4 bg-slate-900/90">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2 font-space">
-                <Sparkles className="w-4 h-4 text-cyan-400" />
+            <div className="bg-[#1A2332] border border-white/5 rounded-xl p-5 space-y-4 shadow-md">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#F8FAFC] flex items-center gap-2 font-space">
+                <Sparkles className="w-4 h-4 text-[#00BFA6]" />
                 Suggested Prompts
               </h3>
 
@@ -129,32 +129,32 @@ export const AiAssistantPage: React.FC = () => {
                   <button
                     key={idx}
                     onClick={() => handleSendMessage(q)}
-                    className="w-full text-left p-3 rounded-xl bg-[#030611] hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 text-xs text-slate-300 hover:text-white transition flex items-center justify-between group"
+                    className="w-full text-left p-3 rounded-lg bg-[#111827] hover:bg-[#111827]/80 border border-white/5 hover:border-[#00BFA6]/30 text-xs text-[#CBD5E1] hover:text-[#F8FAFC] transition-all flex items-center justify-between group font-semibold"
                   >
                     <span className="pr-2">{q}</span>
-                    <Sparkles className="w-3.5 h-3.5 text-slate-600 group-hover:text-cyan-400 shrink-0 transition" />
+                    <Sparkles className="w-3.5 h-3.5 text-[#CBD5E1]/40 group-hover:text-[#00BFA6] shrink-0 transition" />
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Helpline Card */}
-            <div className="glass-panel rounded-2xl border border-amber-500/30 p-5 space-y-3 bg-amber-500/10">
+            <div className="bg-[#1A2332] border border-white/5 rounded-xl p-5 space-y-3 shadow-md">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-amber-500/20 text-amber-400">
+                <div className="p-2.5 rounded-lg bg-[#F59E0B]/10 border border-[#F59E0B]/20 text-[#F59E0B]">
                   <PhoneCall className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white">Emergency Helpline</h4>
-                  <p className="text-xs text-amber-300 font-bold font-mono">Dial 1930 (24/7)</p>
+                  <h4 className="text-xs font-bold text-[#F8FAFC]">Emergency Helpline</h4>
+                  <p className="text-xs text-[#F59E0B] font-bold font-mono">Dial 1930 (24/7)</p>
                 </div>
               </div>
-              <p className="text-[11px] text-slate-300 leading-relaxed">
-                Report financial debit within the first 2 hours ("Golden Hours") to freeze recipient banking accounts immediately.
+              <p className="text-[11px] text-[#CBD5E1]/60 leading-relaxed">
+                Report financial debit within the first 2 hours ("Golden Hours") to freeze recipient bank accounts before funds are withdrawn.
               </p>
               <a
                 href="tel:1930"
-                className="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition"
+                className="w-full py-2.5 rounded bg-[#F59E0B] hover:bg-[#F59E0B]/90 text-[#0B1220] font-bold text-xs flex items-center justify-center gap-2 transition"
               >
                 Call 1930 Now
               </a>
@@ -163,23 +163,23 @@ export const AiAssistantPage: React.FC = () => {
 
           {/* Right Column: Chatbot Window */}
           <div className="lg:col-span-8">
-            <div className="glass-panel rounded-2xl border border-cyan-500/30 bg-slate-900/95 shadow-2xl flex flex-col h-[600px] overflow-hidden">
+            <div className="bg-[#1A2332] border border-white/5 rounded-xl shadow-md flex flex-col h-[520px] overflow-hidden">
               {/* Top Bar */}
-              <div className="p-4 border-b border-slate-800 bg-[#030611] flex items-center justify-between">
+              <div className="p-4 border-b border-white/5 bg-[#111827] flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="relative p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+                  <div className="relative p-2 rounded bg-[#00BFA6]/10 border border-[#00BFA6]/20 text-[#00BFA6]">
                     <Bot className="w-5 h-5" />
-                    <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></span>
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-white flex items-center gap-2 font-manrope">
-                      SentinelAI Copilot
-                      <span className="text-[9px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono">
+                    <h3 className="text-xs font-bold text-[#F8FAFC] flex items-center gap-1.5 font-space">
+                      FraudCore Copilot
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#22C55E]/10 text-[#22C55E] border border-[#22C55E]/20 font-mono font-bold">
                         ONLINE
                       </span>
                     </h3>
-                    <p className="text-[11px] text-slate-400 font-mono">
-                      Law Enforcement NLP Model v2.4
+                    <p className="text-[10px] text-[#CBD5E1]/60 font-mono">
+                      Security Analysis Model v2.4
                     </p>
                   </div>
                 </div>
@@ -204,16 +204,16 @@ export const AiAssistantPage: React.FC = () => {
                         },
                       ])
                     }
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 text-xs flex items-center gap-1 transition"
+                    className="p-1.5 rounded-lg text-[#CBD5E1]/70 hover:text-[#F8FAFC] hover:bg-[#111827] text-xs flex items-center gap-1 transition"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Reset Chat</span>
+                    <span className="hidden sm:inline font-bold">Reset Chat</span>
                   </button>
                 </div>
               </div>
 
               {/* Chat Messages */}
-              <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 bg-[#030611]/50">
+              <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 bg-[#111827]">
                 {messages.map((msg) => (
                   <div
                     key={msg.id}
@@ -222,21 +222,21 @@ export const AiAssistantPage: React.FC = () => {
                     }`}
                   >
                     {msg.sender === 'ai' && (
-                      <div className="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shrink-0 mt-1">
-                        <Bot className="w-5 h-5" />
+                      <div className="p-2 rounded bg-[#00BFA6]/10 border border-[#00BFA6]/20 text-[#00BFA6] shrink-0 mt-1">
+                        <Bot className="w-4 h-4" />
                       </div>
                     )}
 
                     <div
-                      className={`max-w-[85%] sm:max-w-[75%] rounded-2xl p-4 text-xs leading-relaxed space-y-3 relative group ${
+                      className={`max-w-[85%] sm:max-w-[75%] rounded p-4 text-xs leading-relaxed space-y-2.5 relative group ${
                         msg.sender === 'user'
-                          ? 'bg-blue-600 text-white font-semibold rounded-tr-none shadow-lg shadow-blue-600/10'
-                          : 'bg-slate-900 border border-white/10 text-slate-200 rounded-tl-none shadow-md'
+                          ? 'bg-[#1D4ED8] text-white font-medium rounded-tr-none shadow-md'
+                          : 'bg-[#1A2332] border border-white/5 text-[#F8FAFC] rounded-tl-none shadow-md'
                       }`}
                     >
                       {msg.badge && (
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30 text-[10px] font-bold tracking-wider font-mono">
-                          <AlertTriangle className="w-3 h-3" />
+                        <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-red-950/40 text-[#EF4444] border border-red-900/40 text-[9px] font-bold tracking-wider font-mono uppercase">
+                          <AlertTriangle className="w-3 h-3 text-[#EF4444]" />
                           {msg.badge}
                         </div>
                       )}
@@ -244,11 +244,11 @@ export const AiAssistantPage: React.FC = () => {
                       <div className="whitespace-pre-wrap">{msg.text}</div>
 
                       {msg.suggestedActions && msg.suggestedActions.length > 0 && (
-                        <div className="pt-2 border-t border-slate-800 flex flex-wrap gap-1.5">
+                        <div className="pt-2 border-t border-white/5 flex flex-wrap gap-1">
                           {msg.suggestedActions.map((action, idx) => (
                             <span
                               key={idx}
-                              className="px-2 py-1 rounded bg-slate-950 border border-slate-800 text-[10px] text-cyan-400 font-mono font-semibold"
+                              className="px-2 py-0.5 rounded bg-[#111827] border border-white/5 text-[9px] text-[#00BFA6] font-mono font-semibold"
                             >
                               ✓ {action}
                             </span>
@@ -256,20 +256,20 @@ export const AiAssistantPage: React.FC = () => {
                         </div>
                       )}
 
-                      <div className="flex items-center justify-between text-[10px] pt-1 text-slate-400 border-t border-slate-800/40">
+                      <div className="flex items-center justify-between text-[9px] pt-1 text-[#CBD5E1]/50 border-t border-white/5 font-medium">
                         <span>{msg.timestamp}</span>
                         <button
                           onClick={() => copyMessageText(msg.id, msg.text)}
-                          className="hover:text-white transition flex items-center gap-1"
+                          className="hover:text-[#F8FAFC] transition-colors flex items-center gap-1"
                         >
-                          {copiedId === msg.id ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                          {copiedId === msg.id ? <Check className="w-3.5 h-3.5 text-[#22C55E]" /> : <Copy className="w-3.5 h-3.5 text-[#CBD5E1]/60" />}
                         </button>
                       </div>
                     </div>
 
                     {msg.sender === 'user' && (
-                      <div className="p-2 rounded-xl bg-slate-800 text-slate-300 shrink-0 mt-1">
-                        <User className="w-5 h-5" />
+                      <div className="p-2 rounded bg-white/10 text-[#CBD5E1] shrink-0 mt-1">
+                        <User className="w-4 h-4" />
                       </div>
                     )}
                   </div>
@@ -277,11 +277,11 @@ export const AiAssistantPage: React.FC = () => {
 
                 {isTyping && (
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
-                      <Bot className="w-5 h-5 animate-spin" />
+                    <div className="p-2 rounded bg-[#00BFA6]/10 border border-[#00BFA6]/20 text-[#00BFA6]">
+                      <Bot className="w-4 h-4 animate-spin" />
                     </div>
-                    <div className="px-4 py-2.5 rounded-2xl bg-slate-900 border border-white/10 text-xs text-slate-400 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+                    <div className="px-4 py-2 rounded bg-[#1A2332] border border-white/5 text-xs text-[#CBD5E1] flex items-center gap-2 shadow-md font-semibold">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#00BFA6] animate-ping"></span>
                       <span>Copilot is reasoning...</span>
                     </div>
                   </div>
@@ -289,7 +289,7 @@ export const AiAssistantPage: React.FC = () => {
               </div>
 
               {/* Chat Input Bar */}
-              <div className="p-4 border-t border-slate-800 bg-[#030611]">
+              <div className="p-4 border-t border-white/5 bg-[#1A2332]">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -300,10 +300,10 @@ export const AiAssistantPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={toggleVoiceInput}
-                    className={`p-3 rounded-xl border transition ${
+                    className={`p-3 rounded border transition-all ${
                       isListening
-                        ? 'bg-red-500/20 text-red-400 border-red-500/40 animate-pulse'
-                        : 'bg-slate-900 text-slate-400 hover:text-white border-white/10'
+                        ? 'bg-red-950/40 text-[#EF4444] border-red-900/40 animate-pulse'
+                        : 'bg-[#111827] text-[#CBD5E1] hover:text-[#F8FAFC] border-white/5 hover:bg-[#111827]/80'
                     }`}
                     title="Simulate Voice Input"
                   >
@@ -315,13 +315,13 @@ export const AiAssistantPage: React.FC = () => {
                     value={inputQuery}
                     onChange={(e) => setInputQuery(e.target.value)}
                     placeholder="Describe the suspicious call or message..."
-                    className="flex-1 px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-cyan-500 transition font-sans"
+                    className="flex-1 px-4 py-3 rounded bg-white/5 border border-white/5 text-[#F8FAFC] placeholder-[#CBD5E1]/30 text-xs sm:text-sm focus:outline-none focus:border-[#00BFA6] transition-colors font-sans font-medium"
                   />
 
                   <button
                     type="submit"
                     disabled={!inputQuery.trim() || isTyping}
-                    className="px-5 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold text-xs flex items-center gap-2 transition disabled:opacity-50"
+                    className="px-5 py-3 rounded bg-[#00BFA6] hover:bg-[#00BFA6]/90 text-[#0B1220] font-bold text-xs flex items-center gap-2 transition disabled:opacity-50"
                   >
                     <span>Send</span>
                     <Send className="w-4 h-4" />

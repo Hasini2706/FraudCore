@@ -5,9 +5,6 @@ import {
   PhoneCall,
   MessageSquare,
   Sparkles,
-  AlertTriangle,
-  CheckCircle2,
-  FileText,
   ShieldAlert,
   Upload,
   Mic,
@@ -16,9 +13,7 @@ import {
   Check,
   Bot,
   RefreshCw,
-  Sliders,
-  Layers,
-  FileCode
+  FileText
 } from 'lucide-react';
 import { ThreatMeter } from '../components/common/ThreatMeter';
 import { ReportScamModal } from '../components/common/ReportScamModal';
@@ -73,44 +68,44 @@ export const ScamAnalyzerPage: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-cyber-radial bg-cyber-grid pb-20 pt-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="relative min-h-screen bg-[#0B1220] pb-20 pt-8 select-none text-[#F8FAFC]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 animate-fade-in">
         {/* Page Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-            <span className="font-space">ENTERPRISE NLP INFERENCE ENGINE</span>
+        <div className="text-center max-w-3xl mx-auto space-y-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00BFA6]/5 border border-[#00BFA6]/20 text-[#00BFA6] text-xs font-semibold shadow-sm font-space">
+            <Sparkles className="w-3.5 h-3.5 text-[#00BFA6]" />
+            <span>OPERATIONAL COGNITIVE NLP ENGINE</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-manrope">
-            AI Cyber Scam Analyzer & XAI Intelligence
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#F8FAFC] tracking-tight font-manrope font-medium">
+            AI Transaction & Call Analyzer
           </h1>
-          <p className="text-slate-300 text-xs sm:text-sm">
-            Split-screen intelligence analysis: Input suspicious calls, audio, or WhatsApp screenshots to compute an auditable Threat Score & Explainable AI breakdown.
+          <p className="text-[#CBD5E1] text-xs sm:text-sm font-medium">
+            Analyze suspect transcripts, call waveforms, or chat snapshots to evaluate threat indicators and verify escrow lock requirements.
           </p>
         </div>
 
         {/* Split Screen Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Left Column: Transcript Editor & Input Methods */}
           <div className="lg:col-span-6 space-y-6">
-            <div className="glass-panel rounded-2xl border border-white/10 p-6 space-y-5 bg-slate-900/90 shadow-2xl">
+            <div className="bg-[#1A2332] border border-white/5 rounded-xl p-6 space-y-5 shadow-md">
               {/* Input Method Selector Tabs */}
               <div>
-                <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2">
-                  Input Channel & Media Modality
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-[#CBD5E1]/60 mb-2 font-space">
+                  Operational Input Modality
                 </label>
-                <div className="grid grid-cols-4 gap-1.5 bg-[#030611] p-1.5 rounded-xl border border-white/10">
+                <div className="grid grid-cols-4 gap-1 bg-[#111827] p-1 rounded-lg border border-white/5">
                   <button
                     type="button"
                     onClick={() => setInputTab('transcript')}
-                    className={`py-2 px-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition ${
+                    className={`py-1.5 px-2 rounded text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
                       inputTab === 'transcript'
-                        ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                        : 'text-slate-400 hover:text-slate-200'
+                        ? 'bg-[#1A2332] text-[#00BFA6] border border-white/5 shadow-sm'
+                        : 'text-[#CBD5E1] hover:text-[#F8FAFC]'
                     }`}
                   >
                     <FileText className="w-3.5 h-3.5" />
-                    <span>Transcript</span>
+                    <span>Text</span>
                   </button>
 
                   <button
@@ -119,14 +114,14 @@ export const ScamAnalyzerPage: React.FC = () => {
                       setInputTab('audio');
                       handleFileUploadSim('audio');
                     }}
-                    className={`py-2 px-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition ${
+                    className={`py-1.5 px-2 rounded text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
                       inputTab === 'audio'
-                        ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                        : 'text-slate-400 hover:text-slate-200'
+                        ? 'bg-[#1A2332] text-[#00BFA6] border border-white/5 shadow-sm'
+                        : 'text-[#CBD5E1] hover:text-[#F8FAFC]'
                     }`}
                   >
                     <Mic className="w-3.5 h-3.5" />
-                    <span>Audio Call</span>
+                    <span>Audio</span>
                   </button>
 
                   <button
@@ -135,10 +130,10 @@ export const ScamAnalyzerPage: React.FC = () => {
                       setInputTab('screenshot');
                       handleFileUploadSim('screenshot');
                     }}
-                    className={`py-2 px-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition ${
+                    className={`py-1.5 px-2 rounded text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
                       inputTab === 'screenshot'
-                        ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                        : 'text-slate-400 hover:text-slate-200'
+                        ? 'bg-[#1A2332] text-[#00BFA6] border border-white/5 shadow-sm'
+                        : 'text-[#CBD5E1] hover:text-[#F8FAFC]'
                     }`}
                   >
                     <ImageIcon className="w-3.5 h-3.5" />
@@ -148,10 +143,10 @@ export const ScamAnalyzerPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setInputTab('whatsapp')}
-                    className={`py-2 px-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition ${
+                    className={`py-1.5 px-2 rounded text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
                       inputTab === 'whatsapp'
-                        ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                        : 'text-slate-400 hover:text-slate-200'
+                        ? 'bg-[#1A2332] text-[#00BFA6] border border-white/5 shadow-sm'
+                        : 'text-[#CBD5E1] hover:text-[#F8FAFC]'
                     }`}
                   >
                     <MessageSquare className="w-3.5 h-3.5" />
@@ -162,12 +157,12 @@ export const ScamAnalyzerPage: React.FC = () => {
 
               {/* Upload Dropzone Visual for Audio / Screenshot */}
               {(inputTab === 'audio' || inputTab === 'screenshot') && (
-                <div className="p-4 rounded-xl bg-[#030611] border border-dashed border-cyan-500/30 text-center space-y-2 animate-fade-in">
-                  <Upload className="w-6 h-6 text-cyan-400 mx-auto animate-bounce" />
-                  <div className="text-xs text-slate-200 font-semibold">
+                <div className="p-4 rounded-lg bg-[#111827] border border-dashed border-[#00BFA6]/30 text-center space-y-1 animate-fade-in shadow-inner">
+                  <Upload className="w-5 h-5 text-[#00BFA6] mx-auto" />
+                  <div className="text-xs text-[#F8FAFC] font-bold">
                     {inputTab === 'audio' ? 'Uploaded Audio Waveform Processed' : 'OCR Screenshot Text Extracted'}
                   </div>
-                  <div className="text-[11px] text-cyan-400 font-mono">
+                  <div className="text-[10px] text-[#00BFA6] font-mono font-semibold">
                     File: {uploadedFileName || 'sample_input.mp3'}
                   </div>
                 </div>
@@ -176,37 +171,37 @@ export const ScamAnalyzerPage: React.FC = () => {
               {/* Quick Preset Example Buttons */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="text-[10px] font-mono font-semibold text-slate-400 uppercase tracking-wider">
-                    Preset Scenarios for Testing
+                  <label className="text-[10px] font-bold text-[#CBD5E1]/60 uppercase tracking-wider font-space">
+                    Inspect Sample Transcripts
                   </label>
-                  <span className="text-[10px] text-cyan-400 font-mono">Click to load</span>
+                  <span className="text-[9px] text-[#00BFA6] font-bold">Click to load</span>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   <button
                     type="button"
                     onClick={() => loadPreset(PRESET_SAMPLE_TRANSCRIPTS.cbiDigitalArrest)}
-                    className="px-2.5 py-1.5 rounded-lg bg-[#030611] hover:bg-slate-800 border border-slate-800 hover:border-red-500/40 text-[11px] text-slate-300 flex items-center gap-1.5 transition"
+                    className="px-2.5 py-1.5 rounded bg-[#111827] hover:bg-[#1A2332] border border-white/5 hover:border-red-900/40 text-[11px] text-[#CBD5E1] flex items-center gap-1.5 transition-colors font-semibold"
                   >
-                    <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444]"></span>
                     CBI Digital Arrest
                   </button>
 
                   <button
                     type="button"
                     onClick={() => loadPreset(PRESET_SAMPLE_TRANSCRIPTS.customsCourier)}
-                    className="px-2.5 py-1.5 rounded-lg bg-[#030611] hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 text-[11px] text-slate-300 flex items-center gap-1.5 transition"
+                    className="px-2.5 py-1.5 rounded bg-[#111827] hover:bg-[#1A2332] border border-white/5 hover:border-amber-900/40 text-[11px] text-[#CBD5E1] flex items-center gap-1.5 transition-colors font-semibold"
                   >
-                    <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                    Customs Courier Scam
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B]"></span>
+                    Customs Courier
                   </button>
 
                   <button
                     type="button"
                     onClick={() => loadPreset(PRESET_SAMPLE_TRANSCRIPTS.legitimateBankReminder)}
-                    className="px-2.5 py-1.5 rounded-lg bg-[#030611] hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/40 text-[11px] text-slate-300 flex items-center gap-1.5 transition"
+                    className="px-2.5 py-1.5 rounded bg-[#111827] hover:bg-[#1A2332] border border-white/5 hover:border-green-900/40 text-[11px] text-[#CBD5E1] flex items-center gap-1.5 transition-colors font-semibold"
                   >
-                    <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                    Legitimate Bank Reminder
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></span>
+                    Legitimate Alert
                   </button>
                 </div>
               </div>
@@ -214,19 +209,19 @@ export const ScamAnalyzerPage: React.FC = () => {
               {/* Large Transcript Editor */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-semibold text-slate-300">
-                    Transcript Content & Text Stream
+                  <label className="text-xs font-bold text-[#F8FAFC]">
+                    Forensic Text Stream
                   </label>
-                  <span className="text-[11px] text-slate-500 font-mono">
+                  <span className="text-[10px] text-[#CBD5E1]/60 font-mono">
                     {inputText.length} chars
                   </span>
                 </div>
                 <textarea
-                  rows={9}
+                  rows={8}
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   placeholder="Paste suspicious call transcript, WhatsApp message, or legal notice text here..."
-                  className="w-full p-4 rounded-xl bg-[#030611] border border-slate-800 text-slate-100 placeholder-slate-500 text-sm font-sans focus:outline-none focus:border-cyan-500/70 focus:ring-1 focus:ring-cyan-500/50 transition resize-none leading-relaxed"
+                  className="w-full p-3.5 rounded-lg bg-[#111827] border border-white/5 text-[#F8FAFC] placeholder-[#CBD5E1]/30 text-xs font-sans focus:outline-none focus:border-[#00BFA6] transition-colors resize-none leading-relaxed shadow-inner"
                 />
               </div>
 
@@ -235,49 +230,49 @@ export const ScamAnalyzerPage: React.FC = () => {
                 type="button"
                 onClick={handleAnalyze}
                 disabled={isAnalyzing || !inputText.trim()}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:to-cyan-400 text-slate-950 font-extrabold text-sm uppercase tracking-wider shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-3 transition transform active:scale-98 disabled:opacity-50"
+                className="w-full py-3 rounded bg-[#00BFA6] hover:bg-[#00BFA6]/90 text-[#0B1220] font-bold text-xs uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 transition"
               >
                 {isAnalyzing ? (
                   <>
-                    <RefreshCw className="w-5 h-5 animate-spin text-slate-950" />
-                    <span>AI analysing... (Extracted Coercion Vectors)</span>
+                    <RefreshCw className="w-4.5 h-4.5 animate-spin text-[#0B1220]" />
+                    <span>Running operational analysis...</span>
                   </>
                 ) : (
                   <>
-                    <Sparkles className="w-5 h-5" />
-                    <span>Analyze with AI</span>
+                    <Sparkles className="w-4.5 h-4.5" />
+                    <span>Execute Forensic Analysis</span>
                   </>
                 )}
               </button>
             </div>
           </div>
 
-          {/* Right Column: AI Intelligence Report & Hero Reasoning Panel */}
+          {/* Right Column: AI Intelligence Report */}
           <div className="lg:col-span-6 space-y-6">
             {!analysisResult && !isAnalyzing ? (
               /* Placeholder State */
-              <div className="glass-panel rounded-2xl border border-white/10 p-8 text-center space-y-4 bg-slate-900/40 min-h-[500px] flex flex-col items-center justify-center">
-                <div className="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
-                  <Search className="w-10 h-10 animate-pulse" />
+              <div className="bg-[#1A2332] border border-white/5 rounded-xl p-8 text-center space-y-3.5 shadow-md min-h-[460px] flex flex-col items-center justify-center">
+                <div className="p-3 rounded bg-[#00BFA6]/10 border border-[#00BFA6]/20 text-[#00BFA6]">
+                  <Search className="w-8 h-8 animate-pulse-slow" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white font-manrope">Ready for Intelligence Analysis</h3>
-                  <p className="text-slate-400 text-xs mt-1 max-w-sm mx-auto leading-relaxed">
-                    Select a preset or paste suspicious text on the left, then click <strong>"Analyze with AI"</strong> to compute an auditable Threat Score & XAI Report.
+                  <h3 className="text-base font-bold text-[#F8FAFC] font-manrope">Awaiting Escrow Data</h3>
+                  <p className="text-[#CBD5E1]/70 text-xs mt-1 max-w-xs mx-auto leading-relaxed">
+                    Log suspect conversation records or transactional triggers on the left to run evaluation.
                   </p>
                 </div>
               </div>
             ) : isAnalyzing ? (
               /* Loading State */
-              <div className="glass-panel rounded-2xl border border-cyan-500/30 p-10 text-center space-y-6 bg-slate-900/80 min-h-[500px] flex flex-col items-center justify-center">
+              <div className="bg-[#1A2332] border border-white/5 rounded-xl p-10 text-center space-y-5 shadow-md min-h-[460px] flex flex-col items-center justify-center">
                 <div className="relative">
-                  <div className="w-20 h-20 rounded-full border-4 border-cyan-500/20 border-t-cyan-400 animate-spin"></div>
-                  <ShieldAlert className="w-8 h-8 text-cyan-400 absolute inset-0 m-auto" />
+                  <div className="w-16 h-16 rounded-full border-4 border-[#00BFA6]/15 border-t-[#00BFA6] animate-spin"></div>
+                  <ShieldAlert className="w-6 h-6 text-[#00BFA6] absolute inset-0 m-auto" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white font-manrope">AI analysing...</h3>
-                  <p className="text-xs text-slate-400 mt-1 font-mono">
-                    Evaluating psychological coercion vectors, fake CBI/ED authority claims, and forced video isolation templates...
+                  <h3 className="text-base font-bold text-[#F8FAFC] font-manrope">Evaluating Threat Profile...</h3>
+                  <p className="text-xs text-[#CBD5E1]/60 mt-1 font-mono">
+                    Measuring psychological panic flags, bank spoofing registers, and coercion indices...
                   </p>
                 </div>
               </div>
@@ -285,24 +280,24 @@ export const ScamAnalyzerPage: React.FC = () => {
               /* Analysis Output Display */
               <div className="space-y-6 animate-fade-in">
                 {/* Top Summary Card */}
-                <div className="glass-panel rounded-2xl border border-cyan-500/30 p-6 space-y-6 bg-slate-900/95 shadow-2xl">
+                <div className="bg-[#1A2332] border border-white/5 rounded-xl p-6 space-y-5 shadow-md">
                   {/* Header Row */}
-                  <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+                  <div className="flex items-center justify-between pb-3 border-b border-white/5">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-semibold">
-                        Detected Scam Vector
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#CBD5E1]/60 font-space">
+                        Coercion Classification
                       </span>
-                      <h3 className="text-xl font-extrabold text-white flex items-center gap-2 mt-0.5 font-manrope">
+                      <h3 className="text-lg font-bold text-[#F8FAFC] flex items-center gap-2 mt-0.5 font-manrope">
                         {analysisResult.category}
                       </h3>
                     </div>
 
                     <div className="text-right">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-semibold">
-                        Impersonated Agency
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#CBD5E1]/60 font-space">
+                        Impersonation Claim
                       </span>
-                      <div className="text-xs font-bold text-cyan-400 font-mono">
-                        {analysisResult.impersonatedEntity || 'Unknown Authority'}
+                      <div className="text-xs font-semibold text-[#00BFA6] font-mono">
+                        {analysisResult.impersonatedEntity || 'Unknown Sender'}
                       </div>
                     </div>
                   </div>
@@ -316,25 +311,25 @@ export const ScamAnalyzerPage: React.FC = () => {
                       size="lg"
                     />
 
-                    {/* Breakdown box */}
-                    <div className="space-y-3 p-4 rounded-xl bg-[#030611] border border-slate-800 text-xs">
+                    {/* Breakdown Box */}
+                    <div className="space-y-3 p-4 rounded-lg bg-[#111827] border border-white/5 text-xs text-[#CBD5E1]">
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-400">Threat Score</span>
-                        <span className="font-mono font-bold text-red-400 text-sm">
+                        <span className="text-[#CBD5E1]/70 font-medium">Coercion Probability</span>
+                        <span className="font-mono font-bold text-[#EF4444] text-sm">
                           {analysisResult.threatScore}%
                         </span>
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-400">AI Confidence</span>
-                        <span className="font-mono font-bold text-cyan-400">
+                        <span className="text-[#CBD5E1]/70 font-medium">Confidence Score</span>
+                        <span className="font-mono font-bold text-[#00BFA6]">
                           {analysisResult.confidence}%
                         </span>
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-400">Risk Level</span>
-                        <span className="font-bold px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">
+                        <span className="text-[#CBD5E1]/70 font-medium">Evaluated Risk</span>
+                        <span className="font-bold px-2 py-0.5 rounded bg-red-950/40 text-[#EF4444] border border-red-900/40 uppercase text-[10px]">
                           {analysisResult.risk}
                         </span>
                       </div>
@@ -342,16 +337,16 @@ export const ScamAnalyzerPage: React.FC = () => {
                   </div>
 
                   {/* Recommended Action Checklist */}
-                  <div className="space-y-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-2 font-space">
-                      <ShieldAlert className="w-4 h-4 text-amber-400" />
-                      Recommended Safety Protocol
+                  <div className="space-y-2.5 p-4 rounded bg-[#F59E0B]/5 border border-[#F59E0B]/20">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-[#F59E0B] flex items-center gap-2 font-space">
+                      <ShieldAlert className="w-4 h-4 text-[#F59E0B]" />
+                      Safety Protocols & Incident Guidance
                     </h4>
 
-                    <ul className="space-y-2 text-xs text-slate-200">
+                    <ul className="space-y-1.5 text-xs text-[#F8FAFC] font-medium">
                       {analysisResult.recommendations.map((rec, idx) => (
                         <li key={idx} className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0"></span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] mt-1.5 shrink-0"></span>
                           <span>{rec}</span>
                         </li>
                       ))}
@@ -359,39 +354,39 @@ export const ScamAnalyzerPage: React.FC = () => {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
+                  <div className="pt-1 flex flex-col sm:flex-row items-center gap-2.5">
                     <button
                       onClick={() => setIsReportModalOpen(true)}
-                      className="w-full sm:w-1/2 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-lg shadow-red-600/25"
+                      className="w-full sm:w-1/2 py-2.5 rounded bg-[#EF4444] hover:bg-[#EF4444]/90 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-sm border border-[#EF4444]"
                     >
                       <PhoneCall className="w-4 h-4" />
-                      <span>Report to Cyber Cell (1930)</span>
+                      <span>Log Incident dossier (1930)</span>
                     </button>
 
                     <NavLink
                       to="/assistant"
-                      className="w-full sm:w-1/2 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs flex items-center justify-center gap-2 transition border border-slate-700"
+                      className="w-full sm:w-1/2 py-2.5 rounded bg-[#111827] hover:bg-[#111827]/80 text-[#F8FAFC] font-bold text-xs flex items-center justify-center gap-2 transition border border-white/5"
                     >
-                      <Bot className="w-4 h-4 text-cyan-400" />
-                      <span>Ask AI Fraud Assistant</span>
+                      <Bot className="w-4 h-4 text-[#00BFA6]" />
+                      <span>Consult Safety Copilot</span>
                     </NavLink>
                   </div>
 
-                  <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
+                  <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[10px] text-[#CBD5E1]/60 font-mono font-medium">
                     <button
                       onClick={copyDossierJson}
-                      className="flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 text-[11px]"
+                      className="flex items-center gap-1 text-[#00BFA6] hover:text-[#00BFA6]/90 transition-colors"
                     >
-                      {copiedDossier ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copiedDossier ? <Check className="w-3.5 h-3.5 text-[#22C55E]" /> : <Copy className="w-3.5 h-3.5" />}
                       {copiedDossier ? 'JSON Copied' : 'Export JSON Dossier'}
                     </button>
-                    <span className="text-[11px]">
+                    <span>
                       {new Date().toLocaleTimeString()}
                     </span>
                   </div>
                 </div>
 
-                {/* Hero Explainable AI Reasoning Panel */}
+                {/* Explainable AI Reasoning Panel */}
                 <AiReasoningPanel result={analysisResult} />
               </div>
             ) : null}
