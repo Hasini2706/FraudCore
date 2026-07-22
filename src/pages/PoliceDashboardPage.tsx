@@ -9,7 +9,8 @@ import {
   Cpu,
   UserCheck,
   Lock,
-  ChevronRight
+  ChevronRight,
+  Banknote
 } from 'lucide-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -287,6 +288,70 @@ export const PoliceDashboardPage: React.FC = () => {
                   <p className="text-[#94a3b8] text-[10px] mt-0.5 leading-snug">{tl.event}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Fake Currency Detector Analytics Section */}
+      <div className="gov-card p-6 space-y-4 mt-6">
+        <div className="pb-3 border-b border-[#334155]/60 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Banknote className="w-4.5 h-4.5 text-[#22c55e]" />
+            <span className="text-xs font-bold text-white">Fake Currency Scan Analytics</span>
+          </div>
+          <span className="text-[10px] font-mono text-[#22c55e] uppercase">Currency Node: Active</span>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
+          <div className="p-3 bg-[#111827] border border-[#334155]/60 rounded-xl">
+            <span className="text-[#94a3b8] block text-[9px] uppercase font-bold font-sans">Currency Analyses Today</span>
+            <span className="text-white text-base font-bold block mt-1">142 Scans</span>
+          </div>
+          <div className="p-3 bg-[#111827] border border-[#334155]/60 rounded-xl">
+            <span className="text-[#94a3b8] block text-[9px] uppercase font-bold font-sans">Potential Counterfeits Detected</span>
+            <span className="text-[#ef4444] text-base font-bold block mt-1">18 Notes</span>
+          </div>
+          <div className="p-3 bg-[#111827] border border-[#334155]/60 rounded-xl">
+            <span className="text-[#94a3b8] block text-[9px] uppercase font-bold font-sans">Average Authenticity Score</span>
+            <span className="text-[#22c55e] text-base font-bold block mt-1">94.6%</span>
+          </div>
+          <div className="p-3 bg-[#111827] border border-[#334155]/60 rounded-xl">
+            <span className="text-[#94a3b8] block text-[9px] uppercase font-bold font-sans">System Status</span>
+            <span className="text-[#38bdf8] text-base font-bold block mt-1">ONLINE</span>
+          </div>
+        </div>
+
+        {/* Recent Currency Scans */}
+        <div className="space-y-2.5">
+          <span className="block text-[9px] font-bold font-mono text-[#94a3b8] uppercase tracking-wider">
+            Recent Currency Scans
+          </span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="p-3 bg-[#111827] border border-[#334155]/60 rounded-xl flex items-center justify-between text-xs font-mono">
+              <div>
+                <span className="text-white font-bold block">₹2000 Note Scan</span>
+                <span className="text-[#94a3b8] text-[10px]">ID: CUR-9824 • Pune City</span>
+              </div>
+              <div className="text-right">
+                <span className="px-2 py-0.5 bg-[#ef4444]/10 border border-[#ef4444]/20 text-[#ef4444] text-[9px] font-bold rounded">
+                  Potential Counterfeit (Risk: 87%)
+                </span>
+                <span className="text-[#94a3b8] text-[9px] block mt-1">2 mins ago</span>
+              </div>
+            </div>
+
+            <div className="p-3 bg-[#111827] border border-[#334155]/60 rounded-xl flex items-center justify-between text-xs font-mono">
+              <div>
+                <span className="text-white font-bold block">₹500 Note Scan</span>
+                <span className="text-[#94a3b8] text-[10px]">ID: CUR-9823 • Mumbai Suburban</span>
+              </div>
+              <div className="text-right">
+                <span className="px-2 py-0.5 bg-[#22c55e]/10 border border-[#22c55e]/20 text-[#22c55e] text-[9px] font-bold rounded">
+                  Likely Genuine (Risk: 12%)
+                </span>
+                <span className="text-[#94a3b8] text-[9px] block mt-1">15 mins ago</span>
+              </div>
             </div>
           </div>
         </div>

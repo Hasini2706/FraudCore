@@ -1,5 +1,24 @@
 # Fraud$core - AI-Powered Fraud Intelligence Platform
 
+Fraud$core is a premium, government-grade cyber safety and fraud intelligence platform built to protect citizens against digital crime, extortion, and counterfeit activities.
+
+## Core Capabilities
+
+- **🚨 Digital Arrest Scam Detection**: Uses natural language processing and semantic analysis powered by Google Gemini to scan phone transcripts, chat logs, and audio streams for authority impersonation or intimidation.
+- **💸 Fake Currency Detection**: Leverages computer vision note layout audits (such as watermark checks, security threads, intaglio markings, see-through registers) to scan currency note scans and flag potential counterfeits.
+- **🎤 Live Voice Analysis**: Continuous microphone speech-to-text recording mapped to AI safety reasoning logs to identify live threats.
+- **📝 Evidence Generator**: Securely binds screenshot, audio, or text log uploads with declaration checkboxes to compile PDF dossiers for manual portal submissions.
+- **📊 Command Center Dashboard**: Real-time incident logs, regional heatmaps, threat vectors analytics, and telemetry charts.
+- **💬 AI Fraud Assistant**: Interactive chatbot helping citizens clarify legal realities and query fraud warning signs.
+
+## Technology Stack
+
+- **Frontend**: React + TypeScript + Vite
+- **Styling**: Tailwind CSS + Custom Dark Theme variables
+- **Icons**: Lucide React
+- **Services**: Google Generative AI (Gemini) SDK & Custom Layout Engine
+# Fraud$core - AI-Powered Fraud Intelligence Platform
+
 > Protecting citizens from Digital Arrest scams and cyber fraud using Artificial Intelligence.
 
 ## 📌 Overview

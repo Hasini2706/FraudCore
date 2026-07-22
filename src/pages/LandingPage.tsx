@@ -94,7 +94,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartVoiceAnalysis }
         <div>
           <h2 className="text-xl font-bold tracking-tight text-[#f8fafc]">Fraud$core Dashboard</h2>
           <p className="text-xs text-[#94a3b8] mt-0.5">
-            AI-Powered Fraud Intelligence Platform
+            AI-Powered Fraud Intelligence Platform protecting citizens against Digital Arrest scams and fake currency notes.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -107,6 +107,31 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartVoiceAnalysis }
           <span className="px-3 py-1.5 bg-[#111827] border border-[#334155] text-[10px] text-[#94a3b8] rounded-xl font-mono uppercase">
             Data Stream: Live Telemetry
           </span>
+        </div>
+      </div>
+
+      {/* Welcome Banner highlighting major capabilities */}
+      <div className="gov-card p-6 z-10 relative bg-gradient-to-r from-blue-950/40 to-slate-900/40 border-blue-500/20">
+        <h3 className="text-sm font-bold uppercase tracking-wider font-mono text-[#38bdf8] mb-4">
+          Integrated Cyber Defense Capabilities
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-4 bg-[#111827]/85 border border-[#334155]/60 rounded-xl space-y-2">
+            <h4 className="text-xs font-bold text-white flex items-center gap-2">
+              <span>🚨</span> Digital Arrest Scam Detection
+            </h4>
+            <p className="text-[11px] text-[#94a3b8] leading-relaxed font-sans">
+              Scan suspicious audio recordings, phone transcripts, or chat snapshots using semantic AI reasoning to identify coercion, fake police authority threats, and online extortion.
+            </p>
+          </div>
+          <div className="p-4 bg-[#111827]/85 border border-[#334155]/60 rounded-xl space-y-2">
+            <h4 className="text-xs font-bold text-white flex items-center gap-2">
+              <span>💸</span> Fake Currency Detection
+            </h4>
+            <p className="text-[11px] text-[#94a3b8] leading-relaxed font-sans">
+              Upload bank note images to inspect expected physical security details (security thread, latent image, watermark) using deep-learning-assisted currency layout scanning.
+            </p>
+          </div>
         </div>
       </div>
 

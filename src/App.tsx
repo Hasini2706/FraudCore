@@ -5,6 +5,7 @@ import { Sidebar } from './components/layout/Sidebar';
 import { Footer } from './components/layout/Footer';
 import { LandingPage } from './pages/LandingPage';
 import { ScamAnalyzerPage } from './pages/ScamAnalyzerPage';
+import { FakeCurrencyDetectorPage } from './pages/FakeCurrencyDetectorPage';
 import { PoliceDashboardPage } from './pages/PoliceDashboardPage';
 import { AboutDigitalArrestPage } from './pages/AboutDigitalArrestPage';
 import { ReportScamModal } from './components/common/ReportScamModal';
@@ -42,6 +43,8 @@ export function App() {
               />
               {/* Scam Analyzer */}
               <Route path="/analyzer" element={<ScamAnalyzerPage />} />
+              {/* Fake Currency Detector */}
+              <Route path="/currency-detector" element={<FakeCurrencyDetectorPage />} />
               {/* Command Center */}
               <Route path="/dashboard" element={<PoliceDashboardPage />} />
               {/* About Digital Arrest */}

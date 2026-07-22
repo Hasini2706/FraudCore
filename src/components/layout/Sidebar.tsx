@@ -6,7 +6,8 @@ import {
   FileText,
   Radio,
   HelpCircle,
-  ChevronRight
+  ChevronRight,
+  Banknote
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -27,6 +28,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
       label: 'Scam Analyzer',
       path: '/analyzer',
       icon: Search,
+      type: 'route'
+    },
+    {
+      label: 'Fake Currency Detector',
+      path: '/currency-detector',
+      icon: Banknote,
       type: 'route'
     },
     {
