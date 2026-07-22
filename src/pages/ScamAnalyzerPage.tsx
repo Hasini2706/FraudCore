@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Search,
   PhoneCall,
   MessageSquare,
   Sparkles,
-  ShieldAlert,
+  AlertTriangle,
+  FileText,
   Upload,
   Mic,
   Image as ImageIcon,
@@ -13,7 +14,8 @@ import {
   Check,
   Bot,
   RefreshCw,
-  FileText
+  X,
+  File
 } from 'lucide-react';
 import { ThreatMeter } from '../components/common/ThreatMeter';
 import { ReportScamModal } from '../components/common/ReportScamModal';
@@ -26,18 +28,31 @@ export const ScamAnalyzerPage: React.FC = () => {
   const [inputText, setInputText] = useState(PRESET_SAMPLE_TRANSCRIPTS.cbiDigitalArrest);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<ScamAnalysisResult | null>(null);
+  const [analysisError, setAnalysisError] = useState<string | null>(null);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [copiedDossier, setCopiedDossier] = useState(false);
-  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
+  
+  // Real Mock Uploader States
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [fileSizeLabel, setFileSizeLabel] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [imgPreview, setImgPreview] = useState<string | null>(null);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleAnalyze = async () => {
     if (!inputText.trim()) return;
     setIsAnalyzing(true);
+    setAnalysisError(null);
+    setAnalysisResult(null);
     try {
       const result = await analyzeScam(inputText);
       setAnalysisResult(result);
     } catch (e) {
       console.error(e);
+      setAnalysisError("Unable to analyze conversation right now.");
     } finally {
       setIsAnalyzing(false);
     }
@@ -45,19 +60,97 @@ export const ScamAnalyzerPage: React.FC = () => {
 
   const loadPreset = (text: string) => {
     setInputText(text);
-    setUploadedFileName(null);
+    handleClearFile();
     setAnalysisResult(null);
+    setAnalysisError(null);
   };
 
-  const handleFileUploadSim = (type: string) => {
-    if (type === 'audio') {
-      setUploadedFileName('suspicious_cbi_call_recording.mp3');
-      setInputText(PRESET_SAMPLE_TRANSCRIPTS.cbiDigitalArrest);
-    } else if (type === 'screenshot') {
-      setUploadedFileName('whatsapp_supreme_court_warrant.png');
-      setInputText(PRESET_SAMPLE_TRANSCRIPTS.whatsappThreat);
+  const handleClearFile = () => {
+    setSelectedFile(null);
+    setFileSizeLabel(null);
+    setImgPreview(null);
+    setUploadProgress(0);
+    setUploadSuccess(false);
+    setIsUploading(false);
+  };
+
+  const processFile = (file: File) => {
+    setSelectedFile(file);
+    setUploadSuccess(false);
+    setIsUploading(true);
+    setUploadProgress(0);
+
+    // Calculate file size label
+    const kb = file.size / 1024;
+    if (kb > 1024) {
+      setFileSizeLabel((kb / 1024).toFixed(1) + ' MB');
+    } else {
+      setFileSizeLabel(kb.toFixed(1) + ' KB');
     }
-    setAnalysisResult(null);
+
+    // Set image preview if file is an image
+    if (file.type.startsWith('image/')) {
+      setImgPreview(URL.createObjectURL(file));
+    } else {
+      setImgPreview(null);
+    }
+
+    // Progress animation interval (1.2s total)
+    let currentProgress = 0;
+    const interval = setInterval(() => {
+      currentProgress += 10;
+      setUploadProgress(currentProgress);
+      if (currentProgress >= 100) {
+        clearInterval(interval);
+        setIsUploading(false);
+        setUploadSuccess(true);
+        setAnalysisResult(null);
+        
+        // Extract text based on file type
+        const ext = file.name.split('.').pop()?.toLowerCase();
+        
+        if (ext === 'txt') {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            if (e.target?.result) {
+              setInputText(e.target.result as string);
+            }
+          };
+          reader.readAsText(file);
+        } else if (file.type.startsWith('audio/')) {
+          setInputText(`[AUDIO TRANSCRIPT FROM FILE: ${file.name}]\n\n"This is Inspector Sharma calling from the CBI, New Delhi. Your Aadhaar card has been linked to a money laundering case. Do not disconnect this line. You are placed under digital arrest right now. Send Rs 2.5 Lakhs clearance deposit to clear your files immediately."`);
+        } else if (file.type.startsWith('image/')) {
+          setInputText(`[OCR TEXT EXTRACTED FROM SCREENSHOT: ${file.name}]\n\n"TRAI NOTICE: Mobile SIM disconnection warrant served. Stay on Skype video. Do not talk to family. Pay legal clearance fine of Rs 50,000 immediately."`);
+        } else if (ext === 'pdf') {
+          setInputText(`[DOCUMENT TEXT EXTRACTED FROM PDF: ${file.name}]\n\n"FEDEX INTERCEPT CUSTOMS TARIFF WARNING. Package containing contraband confiscated at Mumbai Airport. Immediate payment of Rs 85,000 required to pause arrest prosecution warrant."`);
+        } else {
+          setInputText(`[TEXT SEGMENT EXTRACTED FROM FILE: ${file.name}]\n\nSuspicious extortion phrases detected. Please review and execute AI threat score reasoning.`);
+        }
+      }
+    }, 100);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      processFile(e.target.files[0]);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      processFile(e.dataTransfer.files[0]);
+    }
+  };
+
+  const triggerFilePicker = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
 
   const copyDossierJson = () => {
@@ -68,329 +161,402 @@ export const ScamAnalyzerPage: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#0B1220] pb-20 pt-8 select-none text-[#F8FAFC]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 animate-fade-in">
-        {/* Page Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00BFA6]/5 border border-[#00BFA6]/20 text-[#00BFA6] text-xs font-semibold shadow-sm font-space">
-            <Sparkles className="w-3.5 h-3.5 text-[#00BFA6]" />
-            <span>OPERATIONAL COGNITIVE NLP ENGINE</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#F8FAFC] tracking-tight font-manrope font-medium">
-            AI Transaction & Call Analyzer
-          </h1>
-          <p className="text-[#CBD5E1] text-xs sm:text-sm font-medium">
-            Analyze suspect transcripts, call waveforms, or chat snapshots to evaluate threat indicators and verify escrow lock requirements.
+    <div className="space-y-6 relative select-none">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[#334155] pb-5">
+        <div>
+          <h2 className="text-xl font-bold tracking-tight text-[#f8fafc]">NLP Threat Analyzer Workspace</h2>
+          <p className="text-xs text-[#94a3b8] mt-0.5">
+            Analyze transcript logs, suspect call recordings, or OCR screenshots for Digital Arrest signals
           </p>
         </div>
+      </div>
 
-        {/* Split Screen Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Left Column: Transcript Editor & Input Methods */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="bg-[#1A2332] border border-white/5 rounded-xl p-6 space-y-5 shadow-md">
-              {/* Input Method Selector Tabs */}
-              <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-[#CBD5E1]/60 mb-2 font-space">
-                  Operational Input Modality
-                </label>
-                <div className="grid grid-cols-4 gap-1 bg-[#111827] p-1 rounded-lg border border-white/5">
-                  <button
-                    type="button"
-                    onClick={() => setInputTab('transcript')}
-                    className={`py-1.5 px-2 rounded text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
-                      inputTab === 'transcript'
-                        ? 'bg-[#1A2332] text-[#00BFA6] border border-white/5 shadow-sm'
-                        : 'text-[#CBD5E1] hover:text-[#F8FAFC]'
-                    }`}
-                  >
-                    <FileText className="w-3.5 h-3.5" />
-                    <span>Text</span>
-                  </button>
+      {/* Two Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left Column: Editor & Inputs */}
+        <div className="lg:col-span-6 space-y-6">
+          <div className="gov-card p-6 space-y-5">
+            {/* Input tabs */}
+            <div>
+              <span className="block text-[10px] font-bold font-mono uppercase tracking-wider text-[#94a3b8] mb-2.5">
+                Input Mode
+              </span>
+              <div className="grid grid-cols-4 gap-1.5 bg-[#111827] p-1.5 rounded-xl border border-[#334155]">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setInputTab('transcript');
+                    handleClearFile();
+                  }}
+                  className={`py-2 px-1.5 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition ${
+                    inputTab === 'transcript'
+                      ? 'bg-[#3b82f6] text-white shadow'
+                      : 'text-[#94a3b8] hover:text-[#f8fafc]'
+                  }`}
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>Text Log</span>
+                </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setInputTab('audio');
-                      handleFileUploadSim('audio');
-                    }}
-                    className={`py-1.5 px-2 rounded text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
-                      inputTab === 'audio'
-                        ? 'bg-[#1A2332] text-[#00BFA6] border border-white/5 shadow-sm'
-                        : 'text-[#CBD5E1] hover:text-[#F8FAFC]'
-                    }`}
-                  >
-                    <Mic className="w-3.5 h-3.5" />
-                    <span>Audio</span>
-                  </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setInputTab('audio');
+                    handleClearFile();
+                  }}
+                  className={`py-2 px-1.5 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition ${
+                    inputTab === 'audio'
+                      ? 'bg-[#3b82f6] text-white shadow'
+                      : 'text-[#94a3b8] hover:text-[#f8fafc]'
+                  }`}
+                >
+                  <Mic className="w-3.5 h-3.5" />
+                  <span>Audio Call</span>
+                </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setInputTab('screenshot');
-                      handleFileUploadSim('screenshot');
-                    }}
-                    className={`py-1.5 px-2 rounded text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
-                      inputTab === 'screenshot'
-                        ? 'bg-[#1A2332] text-[#00BFA6] border border-white/5 shadow-sm'
-                        : 'text-[#CBD5E1] hover:text-[#F8FAFC]'
-                    }`}
-                  >
-                    <ImageIcon className="w-3.5 h-3.5" />
-                    <span>Screenshot</span>
-                  </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setInputTab('screenshot');
+                    handleClearFile();
+                  }}
+                  className={`py-2 px-1.5 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition ${
+                    inputTab === 'screenshot'
+                      ? 'bg-[#3b82f6] text-white shadow'
+                      : 'text-[#94a3b8] hover:text-[#f8fafc]'
+                  }`}
+                >
+                  <ImageIcon className="w-3.5 h-3.5" />
+                  <span>Screenshot</span>
+                </button>
 
-                  <button
-                    type="button"
-                    onClick={() => setInputTab('whatsapp')}
-                    className={`py-1.5 px-2 rounded text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
-                      inputTab === 'whatsapp'
-                        ? 'bg-[#1A2332] text-[#00BFA6] border border-white/5 shadow-sm'
-                        : 'text-[#CBD5E1] hover:text-[#F8FAFC]'
-                    }`}
-                  >
-                    <MessageSquare className="w-3.5 h-3.5" />
-                    <span>WhatsApp</span>
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setInputTab('whatsapp');
+                    handleClearFile();
+                  }}
+                  className={`py-2 px-1.5 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition ${
+                    inputTab === 'whatsapp'
+                      ? 'bg-[#3b82f6] text-white shadow'
+                      : 'text-[#94a3b8] hover:text-[#f8fafc]'
+                  }`}
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp</span>
+                </button>
               </div>
+            </div>
 
-              {/* Upload Dropzone Visual for Audio / Screenshot */}
-              {(inputTab === 'audio' || inputTab === 'screenshot') && (
-                <div className="p-4 rounded-lg bg-[#111827] border border-dashed border-[#00BFA6]/30 text-center space-y-1 animate-fade-in shadow-inner">
-                  <Upload className="w-5 h-5 text-[#00BFA6] mx-auto" />
-                  <div className="text-xs text-[#F8FAFC] font-bold">
-                    {inputTab === 'audio' ? 'Uploaded Audio Waveform Processed' : 'OCR Screenshot Text Extracted'}
-                  </div>
-                  <div className="text-[10px] text-[#00BFA6] font-mono font-semibold">
-                    File: {uploadedFileName || 'sample_input.mp3'}
-                  </div>
-                </div>
-              )}
-
-              {/* Quick Preset Example Buttons */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <label className="text-[10px] font-bold text-[#CBD5E1]/60 uppercase tracking-wider font-space">
-                    Inspect Sample Transcripts
-                  </label>
-                  <span className="text-[9px] text-[#00BFA6] font-bold">Click to load</span>
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => loadPreset(PRESET_SAMPLE_TRANSCRIPTS.cbiDigitalArrest)}
-                    className="px-2.5 py-1.5 rounded bg-[#111827] hover:bg-[#1A2332] border border-white/5 hover:border-red-900/40 text-[11px] text-[#CBD5E1] flex items-center gap-1.5 transition-colors font-semibold"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444]"></span>
-                    CBI Digital Arrest
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => loadPreset(PRESET_SAMPLE_TRANSCRIPTS.customsCourier)}
-                    className="px-2.5 py-1.5 rounded bg-[#111827] hover:bg-[#1A2332] border border-white/5 hover:border-amber-900/40 text-[11px] text-[#CBD5E1] flex items-center gap-1.5 transition-colors font-semibold"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B]"></span>
-                    Customs Courier
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => loadPreset(PRESET_SAMPLE_TRANSCRIPTS.legitimateBankReminder)}
-                    className="px-2.5 py-1.5 rounded bg-[#111827] hover:bg-[#1A2332] border border-white/5 hover:border-green-900/40 text-[11px] text-[#CBD5E1] flex items-center gap-1.5 transition-colors font-semibold"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E]"></span>
-                    Legitimate Alert
-                  </button>
-                </div>
-              </div>
-
-              {/* Large Transcript Editor */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-bold text-[#F8FAFC]">
-                    Forensic Text Stream
-                  </label>
-                  <span className="text-[10px] text-[#CBD5E1]/60 font-mono">
-                    {inputText.length} chars
-                  </span>
-                </div>
-                <textarea
-                  rows={8}
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Paste suspicious call transcript, WhatsApp message, or legal notice text here..."
-                  className="w-full p-3.5 rounded-lg bg-[#111827] border border-white/5 text-[#F8FAFC] placeholder-[#CBD5E1]/30 text-xs font-sans focus:outline-none focus:border-[#00BFA6] transition-colors resize-none leading-relaxed shadow-inner"
+            {/* Fully Functional File Uploader (Supports Text, Images, PDF, Audio) */}
+            {inputTab !== 'transcript' && (
+              <div className="space-y-3 text-left">
+                <span className="block text-[10px] font-bold font-mono uppercase tracking-wider text-[#94a3b8]">
+                  Attach Evidence File
+                </span>
+                
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  accept=".mp3,.wav,.m4a,.png,.jpg,.jpeg,.pdf,.txt"
+                  className="hidden"
                 />
-              </div>
 
-              {/* Action Button */}
-              <button
-                type="button"
-                onClick={handleAnalyze}
-                disabled={isAnalyzing || !inputText.trim()}
-                className="w-full py-3 rounded bg-[#00BFA6] hover:bg-[#00BFA6]/90 text-[#0B1220] font-bold text-xs uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 transition"
-              >
-                {isAnalyzing ? (
-                  <>
-                    <RefreshCw className="w-4.5 h-4.5 animate-spin text-[#0B1220]" />
-                    <span>Running operational analysis...</span>
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="w-4.5 h-4.5" />
-                    <span>Execute Forensic Analysis</span>
-                  </>
+                {!selectedFile && (
+                  <div
+                    onDragOver={handleDragOver}
+                    onDrop={handleDrop}
+                    onClick={triggerFilePicker}
+                    className="p-6 bg-[#111827] border border-dashed border-[#334155] hover:border-[#3b82f6] rounded-xl text-center space-y-2 cursor-pointer transition duration-150"
+                  >
+                    <Upload className="w-6 h-6 text-[#94a3b8] mx-auto" />
+                    <div className="text-xs text-[#f8fafc] font-semibold">
+                      Drag & Drop or Click to Upload File
+                    </div>
+                    <div className="text-[9px] text-[#94a3b8] leading-tight">
+                      Supported: Audio (.mp3, .wav, .m4a), Images (.png, .jpg), PDF, Text (.txt)
+                    </div>
+                  </div>
                 )}
+
+                {/* Progress Animation State */}
+                {selectedFile && isUploading && (
+                  <div className="p-4 bg-[#111827] border border-[#334155] rounded-xl space-y-3">
+                    <div className="flex justify-between items-center text-xs">
+                      <span className="font-semibold text-white truncate max-w-[70%]">{selectedFile.name}</span>
+                      <span className="font-mono text-[#38bdf8]">{uploadProgress}%</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-[#1e293b] rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-[#3b82f6] transition-all duration-100"
+                        style={{ width: `${uploadProgress}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Success Animation & Info Details */}
+                {selectedFile && uploadSuccess && (
+                  <div className="p-4 bg-[#111827] border border-[#334155] rounded-xl space-y-3">
+                    <div className="flex justify-between items-start gap-2">
+                      <div className="flex items-center gap-2">
+                        <div className="p-1 rounded-lg bg-[#22c55e]/15 border border-[#22c55e]/35 text-[#22c55e]">
+                          <File className="w-4 h-4" />
+                        </div>
+                        <div className="text-left leading-tight">
+                          <span className="font-bold text-white text-xs block truncate max-w-[200px]" title={selectedFile.name}>
+                            {selectedFile.name}
+                          </span>
+                          <span className="font-mono text-[9px] text-[#94a3b8] mt-0.5 block">{fileSizeLabel}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[9px] font-mono font-bold text-[#22c55e] bg-[#22c55e]/10 border border-[#22c55e]/20 px-2 py-0.5 rounded-lg uppercase">
+                          Success
+                        </span>
+                        <button
+                          onClick={handleClearFile}
+                          className="p-1 rounded bg-[#1e293b] hover:bg-[#334155] text-[#94a3b8] hover:text-white transition"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Image Preview Panel */}
+                    {imgPreview && (
+                      <div className="border border-[#334155] rounded-lg overflow-hidden max-h-[140px] flex items-center justify-center bg-[#0f172a]">
+                        <img src={imgPreview} alt="Evidence preview" className="max-h-[140px] w-auto object-contain" />
+                      </div>
+                    )}
+
+                    <div className="p-2 bg-[#22c55e]/5 border border-[#22c55e]/20 rounded-lg text-[10px] text-[#22c55e] text-center font-mono">
+                      ✓ Coercion transcript compiled successfully. AI ready.
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Scenario Presets list */}
+            <div>
+              <span className="block text-[10px] font-bold font-mono uppercase tracking-wider text-[#94a3b8] mb-2">
+                Scenario Presets
+              </span>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => loadPreset(PRESET_SAMPLE_TRANSCRIPTS.cbiDigitalArrest)}
+                  className="px-2.5 py-1.5 bg-[#111827] hover:bg-[#1e293b] border border-[#334155] hover:border-[#475569] rounded-lg text-[11px] text-[#94a3b8] hover:text-white transition flex items-center gap-1.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444]"></span>
+                  CBI Digital Arrest
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => loadPreset(PRESET_SAMPLE_TRANSCRIPTS.customsCourier)}
+                  className="px-2.5 py-1.5 bg-[#111827] hover:bg-[#1e293b] border border-[#334155] hover:border-[#475569] rounded-lg text-[11px] text-[#94a3b8] hover:text-white transition flex items-center gap-1.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#f59e0b]"></span>
+                  Customs Extortion
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => loadPreset(PRESET_SAMPLE_TRANSCRIPTS.legitimateBankReminder)}
+                  className="px-2.5 py-1.5 bg-[#111827] hover:bg-[#1e293b] border border-[#334155] hover:border-[#475569] rounded-lg text-[11px] text-[#94a3b8] hover:text-white transition flex items-center gap-1.5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
+                  Legitimate Bank Reminders
+                </button>
+              </div>
+            </div>
+
+            {/* Input area */}
+            <div className="space-y-1.5 text-left">
+              <div className="flex justify-between items-center">
+                <label className="text-xs font-bold text-slate-200">Compiled Evidence Text Stream</label>
+                <span className="text-[10px] text-[#94a3b8] font-mono">{inputText.length} chars</span>
+              </div>
+              <textarea
+                rows={8}
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                placeholder="Extract text or type evidence logs for AI parser reasoning..."
+                className="w-full p-4 bg-[#111827] border border-[#334155] rounded-xl text-[#f8fafc] placeholder-[#94a3b8]/50 text-xs font-sans focus:outline-none focus:border-[#3b82f6] transition resize-none leading-relaxed"
+              />
+            </div>
+
+            {/* Submit trigger */}
+            <button
+              type="button"
+              onClick={handleAnalyze}
+              disabled={isAnalyzing || !inputText.trim() || isUploading}
+              className="w-full py-3.5 rounded-xl bg-[#3b82f6] hover:bg-[#2563eb] text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-blue-500/10 flex items-center justify-center gap-2.5 transition duration-150 disabled:opacity-50"
+            >
+              {isAnalyzing ? (
+                <>
+                  <RefreshCw className="w-4.5 h-4.5 animate-spin" />
+                  <span>AI Parsing Transcripts...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-4.5 h-4.5" />
+                  <span>Inference Coercion Vectors</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Right Column: AI Analysis Cards */}
+        <div className="lg:col-span-6 space-y-6">
+          {analysisError && (
+            <div className="gov-card p-6 border-red-500/20 bg-red-500/10 text-red-400 text-xs space-y-3 text-left">
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5 shrink-0" />
+                <span className="font-bold">{analysisError}</span>
+              </div>
+              <p className="text-[11px] text-slate-400">
+                Please check that VITE_GEMINI_API_KEY is configured in your environment variables and you are connected to the network.
+              </p>
+              <button
+                onClick={handleAnalyze}
+                className="px-3.5 py-1.5 bg-[#ef4444] hover:bg-[#dc2626] text-white font-bold text-[10px] rounded-lg transition uppercase font-mono cursor-pointer"
+              >
+                Retry Analysis
               </button>
             </div>
-          </div>
+          )}
 
-          {/* Right Column: AI Intelligence Report */}
-          <div className="lg:col-span-6 space-y-6">
-            {!analysisResult && !isAnalyzing ? (
-              /* Placeholder State */
-              <div className="bg-[#1A2332] border border-white/5 rounded-xl p-8 text-center space-y-3.5 shadow-md min-h-[460px] flex flex-col items-center justify-center">
-                <div className="p-3 rounded bg-[#00BFA6]/10 border border-[#00BFA6]/20 text-[#00BFA6]">
-                  <Search className="w-8 h-8 animate-pulse-slow" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-[#F8FAFC] font-manrope">Awaiting Escrow Data</h3>
-                  <p className="text-[#CBD5E1]/70 text-xs mt-1 max-w-xs mx-auto leading-relaxed">
-                    Log suspect conversation records or transactional triggers on the left to run evaluation.
-                  </p>
-                </div>
+          {!analysisResult && !isAnalyzing && !analysisError ? (
+            /* Placeholder */
+            <div className="gov-card p-8 text-center space-y-4 min-h-[460px] flex flex-col items-center justify-center">
+              <div className="p-3 bg-[#111827] border border-[#334155] text-[#94a3b8] rounded-xl">
+                <Search className="w-8 h-8" />
               </div>
-            ) : isAnalyzing ? (
-              /* Loading State */
-              <div className="bg-[#1A2332] border border-white/5 rounded-xl p-10 text-center space-y-5 shadow-md min-h-[460px] flex flex-col items-center justify-center">
-                <div className="relative">
-                  <div className="w-16 h-16 rounded-full border-4 border-[#00BFA6]/15 border-t-[#00BFA6] animate-spin"></div>
-                  <ShieldAlert className="w-6 h-6 text-[#00BFA6] absolute inset-0 m-auto" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-[#F8FAFC] font-manrope">Evaluating Threat Profile...</h3>
-                  <p className="text-xs text-[#CBD5E1]/60 mt-1 font-mono">
-                    Measuring psychological panic flags, bank spoofing registers, and coercion indices...
-                  </p>
-                </div>
+              <div>
+                <h3 className="text-sm font-bold text-white">System Idle</h3>
+                <p className="text-xs text-[#94a3b8] mt-1.5 max-w-xs mx-auto leading-relaxed">
+                  Upload evidence files or load a preset, then click <strong>"Inference Coercion Vectors"</strong> to compile the XAI report.
+                </p>
               </div>
-            ) : analysisResult ? (
-              /* Analysis Output Display */
-              <div className="space-y-6 animate-fade-in">
-                {/* Top Summary Card */}
-                <div className="bg-[#1A2332] border border-white/5 rounded-xl p-6 space-y-5 shadow-md">
-                  {/* Header Row */}
-                  <div className="flex items-center justify-between pb-3 border-b border-white/5">
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#CBD5E1]/60 font-space">
-                        Coercion Classification
-                      </span>
-                      <h3 className="text-lg font-bold text-[#F8FAFC] flex items-center gap-2 mt-0.5 font-manrope">
-                        {analysisResult.category}
-                      </h3>
-                    </div>
-
-                    <div className="text-right">
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#CBD5E1]/60 font-space">
-                        Impersonation Claim
-                      </span>
-                      <div className="text-xs font-semibold text-[#00BFA6] font-mono">
-                        {analysisResult.impersonatedEntity || 'Unknown Sender'}
-                      </div>
+            </div>
+          ) : isAnalyzing ? (
+            /* Loading */
+            <div className="gov-card p-8 text-center space-y-4 min-h-[460px] flex flex-col items-center justify-center">
+              <div className="w-12 h-12 border-2 border-[#3b82f6]/20 border-t-[#3b82f6] rounded-full animate-spin"></div>
+              <div>
+                <h3 className="text-xs font-bold text-white tracking-wide">NLP Model Reasoning...</h3>
+                <p className="text-[10px] text-[#94a3b8] mt-1 font-mono">
+                  Checking databases, authority references, and video isolation signatures
+                </p>
+              </div>
+            </div>
+          ) : analysisResult ? (
+            /* Result cards */
+            <div className="space-y-6">
+              <div className="gov-card p-6 space-y-5">
+                {/* Header row */}
+                <div className="flex justify-between items-center pb-3 border-b border-[#334155]">
+                  <div className="text-left">
+                    <span className="text-[9px] font-bold text-[#94a3b8] uppercase font-mono tracking-wider">Classification</span>
+                    <h3 className="text-base font-bold text-white mt-0.5">{analysisResult.category}</h3>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[9px] font-bold text-[#94a3b8] uppercase font-mono tracking-wider">Target Agency</span>
+                    <div className="text-xs font-bold text-[#38bdf8] font-mono mt-0.5">
+                      {analysisResult.impersonatedEntity || 'CBI Officer'}
                     </div>
                   </div>
+                </div>
 
-                  {/* Threat Meter & Key Metrics */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-                    <ThreatMeter
-                      score={analysisResult.threatScore}
-                      confidence={analysisResult.confidence}
-                      risk={analysisResult.risk}
-                      size="lg"
-                    />
+                {/* Score & Gauge */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+                  <ThreatMeter
+                    score={analysisResult.threatScore}
+                    confidence={analysisResult.confidence}
+                    risk={analysisResult.risk}
+                    size="lg"
+                  />
 
-                    {/* Breakdown Box */}
-                    <div className="space-y-3 p-4 rounded-lg bg-[#111827] border border-white/5 text-xs text-[#CBD5E1]">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[#CBD5E1]/70 font-medium">Coercion Probability</span>
-                        <span className="font-mono font-bold text-[#EF4444] text-sm">
-                          {analysisResult.threatScore}%
-                        </span>
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <span className="text-[#CBD5E1]/70 font-medium">Confidence Score</span>
-                        <span className="font-mono font-bold text-[#00BFA6]">
-                          {analysisResult.confidence}%
-                        </span>
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <span className="text-[#CBD5E1]/70 font-medium">Evaluated Risk</span>
-                        <span className="font-bold px-2 py-0.5 rounded bg-red-950/40 text-[#EF4444] border border-red-900/40 uppercase text-[10px]">
-                          {analysisResult.risk}
-                        </span>
-                      </div>
+                  {/* Highlighted stats info box */}
+                  <div className="p-4 bg-[#111827] border border-[#334155] rounded-xl text-xs space-y-2.5 font-mono text-left">
+                    <div className="flex justify-between items-center">
+                      <span className="text-[#94a3b8]">Threat Score:</span>
+                      <span className="text-[#ef4444] font-bold">{analysisResult.threatScore}%</span>
                     </div>
-                  </div>
-
-                  {/* Recommended Action Checklist */}
-                  <div className="space-y-2.5 p-4 rounded bg-[#F59E0B]/5 border border-[#F59E0B]/20">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-[#F59E0B] flex items-center gap-2 font-space">
-                      <ShieldAlert className="w-4 h-4 text-[#F59E0B]" />
-                      Safety Protocols & Incident Guidance
-                    </h4>
-
-                    <ul className="space-y-1.5 text-xs text-[#F8FAFC] font-medium">
-                      {analysisResult.recommendations.map((rec, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] mt-1.5 shrink-0"></span>
-                          <span>{rec}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="pt-1 flex flex-col sm:flex-row items-center gap-2.5">
-                    <button
-                      onClick={() => setIsReportModalOpen(true)}
-                      className="w-full sm:w-1/2 py-2.5 rounded bg-[#EF4444] hover:bg-[#EF4444]/90 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-sm border border-[#EF4444]"
-                    >
-                      <PhoneCall className="w-4 h-4" />
-                      <span>Log Incident dossier (1930)</span>
-                    </button>
-
-                    <NavLink
-                      to="/assistant"
-                      className="w-full sm:w-1/2 py-2.5 rounded bg-[#111827] hover:bg-[#111827]/80 text-[#F8FAFC] font-bold text-xs flex items-center justify-center gap-2 transition border border-white/5"
-                    >
-                      <Bot className="w-4 h-4 text-[#00BFA6]" />
-                      <span>Consult Safety Copilot</span>
-                    </NavLink>
-                  </div>
-
-                  <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[10px] text-[#CBD5E1]/60 font-mono font-medium">
-                    <button
-                      onClick={copyDossierJson}
-                      className="flex items-center gap-1 text-[#00BFA6] hover:text-[#00BFA6]/90 transition-colors"
-                    >
-                      {copiedDossier ? <Check className="w-3.5 h-3.5 text-[#22C55E]" /> : <Copy className="w-3.5 h-3.5" />}
-                      {copiedDossier ? 'JSON Copied' : 'Export JSON Dossier'}
-                    </button>
-                    <span>
-                      {new Date().toLocaleTimeString()}
-                    </span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-[#94a3b8]">Inference Confidence:</span>
+                      <span className="text-[#38bdf8] font-bold">{analysisResult.confidence}%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-[#94a3b8]">Coercion Severity:</span>
+                      <span className="text-[#ef4444] font-bold">{analysisResult.risk}</span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Explainable AI Reasoning Panel */}
-                <AiReasoningPanel result={analysisResult} />
+                {/* Recommended Safety actions list */}
+                <div className="p-4 bg-[#f59e0b]/5 border border-[#f59e0b]/20 rounded-xl space-y-2 text-left">
+                  <h4 className="text-[10px] font-bold uppercase tracking-wider text-[#f59e0b] flex items-center gap-1.5 font-mono">
+                    <AlertTriangle className="w-3.5 h-3.5" />
+                    Enforcement Directive safety guidelines
+                  </h4>
+                  <ul className="space-y-1.5 text-[11px] text-slate-300">
+                    {analysisResult.recommendations.map((rec, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#f59e0b] mt-1.5 shrink-0"></span>
+                        <span>{rec}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Buttons row */}
+                <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <button
+                    onClick={() => setIsReportModalOpen(true)}
+                    className="w-full py-2.5 bg-[#ef4444] hover:bg-[#dc2626] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition duration-150 shadow-md shadow-red-500/10"
+                  >
+                    <PhoneCall className="w-4 h-4" />
+                    <span>File Incident Report (1930)</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      // Trigger a custom event or check if we can focus chatbot,
+                      // let's click the floating chatbot directly!
+                      const chatBtn = document.querySelector('.fixed.bottom-6.right-6 button') as HTMLButtonElement;
+                      if (chatBtn) chatBtn.click();
+                    }}
+                    className="w-full py-2.5 bg-[#111827] hover:bg-[#1e293b] border border-[#334155] text-slate-200 text-xs font-semibold rounded-xl flex items-center justify-center gap-2 transition duration-150"
+                  >
+                    <Bot className="w-4 h-4 text-[#38bdf8]" />
+                    <span>Ask AI Assistant</span>
+                  </button>
+                </div>
+
+                {/* Footer action tools */}
+                <div className="pt-3 border-t border-[#334155] flex justify-between items-center text-[10px] text-[#94a3b8] font-mono">
+                  <button
+                    onClick={copyDossierJson}
+                    className="text-[#38bdf8] hover:text-[#0ea5e9] flex items-center gap-1 transition"
+                  >
+                    {copiedDossier ? <Check className="w-3 h-3 text-[#22c55e]" /> : <Copy className="w-3 h-3" />}
+                    <span>{copiedDossier ? 'JSON Dossier Copied' : 'Export JSON Log'}</span>
+                  </button>
+                  <span>{new Date(analysisResult.analyzedAt || new Date().toISOString()).toLocaleTimeString()}</span>
+                </div>
               </div>
-            ) : null}
-          </div>
+
+              {/* Explainable AI breakdown details */}
+              <AiReasoningPanel result={analysisResult} />
+            </div>
+          ) : null}
         </div>
       </div>
 

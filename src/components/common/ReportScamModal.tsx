@@ -32,10 +32,10 @@ export const ReportScamModal: React.FC<ReportScamModalProps> = ({
     // Trigger success confetti effect
     try {
       confetti({
-        particleCount: 80,
-        spread: 60,
+        particleCount: 60,
+        spread: 50,
         origin: { y: 0.6 },
-        colors: ['#00BFA6', '#1D4ED8', '#22C55E'],
+        colors: ['#3b82f6', '#38bdf8', '#22c55e'],
       });
     } catch {
       // fallback
@@ -56,152 +56,153 @@ export const ReportScamModal: React.FC<ReportScamModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0B1220]/60 backdrop-blur-sm animate-fade-in">
-      <div className="relative w-full max-w-lg bg-[#1A2332] border border-white/5 rounded-xl p-6 shadow-lg overflow-hidden select-none text-[#F8FAFC]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm select-none">
+      <div className="relative w-full max-w-lg bg-[#1e293b] border border-[#334155] rounded-xl p-6 shadow-2xl overflow-hidden">
         {/* Close Button */}
         <button
           onClick={resetForm}
-          className="absolute top-4 right-4 p-1.5 rounded-lg text-[#CBD5E1]/60 hover:text-[#F8FAFC] hover:bg-[#111827] transition-colors"
+          className="absolute top-4 right-4 p-1.5 rounded-lg text-[#94a3b8] hover:text-white hover:bg-[#111827] transition"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
         {!submitted ? (
           <div>
-            <div className="flex items-center gap-3 pb-4 border-b border-white/5">
-              <div className="p-2.5 rounded-lg bg-[#EF4444]/10 border border-[#EF4444]/20 text-[#EF4444]">
-                <ShieldAlert className="w-5 h-5 animate-pulse-slow" />
+            <div className="flex items-center gap-3 pb-3 border-b border-[#334155]">
+              <div className="p-2 bg-[#111827] border border-[#334155] text-[#ef4444] rounded-xl">
+                <ShieldAlert className="w-5 h-5" />
               </div>
-              <div>
-                <h3 className="text-base font-bold text-[#F8FAFC]">
-                  Log Incident File
+              <div className="text-left font-mono">
+                <h3 className="text-sm font-bold text-white uppercase tracking-wider">
+                  Report Coercive Incident
                 </h3>
-                <p className="text-xs text-[#CBD5E1]/60 font-medium">
-                  Submit transaction threat data directly to FraudCore Response Hub
+                <p className="text-[10px] text-[#94a3b8] mt-0.5">
+                  Secure Logging Protocol linked with National Helpline (1930)
                 </p>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+            <form onSubmit={handleSubmit} className="mt-4 space-y-4 text-left">
               <div>
-                <label className="block text-xs font-bold text-[#CBD5E1]/60 mb-1">
-                  Threat Category Detected
+                <label className="block text-[10px] font-bold font-mono uppercase tracking-wider text-[#94a3b8] mb-1.5">
+                  AI Scam Category Classifier
                 </label>
-                <div className="px-3 py-2 rounded bg-[#111827] border border-white/5 text-xs font-semibold text-[#00BFA6] flex items-center justify-between">
+                <div className="px-3.5 py-2.5 rounded-xl bg-[#111827] border border-[#334155] text-xs font-semibold text-[#38bdf8] flex items-center justify-between font-mono">
                   <span>{scamCategory}</span>
-                  <span className="text-[10px] text-[#EF4444] bg-[#EF4444]/10 px-2 py-0.5 rounded border border-[#EF4444]/20 font-mono font-bold">
-                    Score: {threatScore}%
+                  <span className="text-[9px] text-[#ef4444] bg-[#ef4444]/10 px-2 py-0.5 rounded border border-[#ef4444]/20 font-bold">
+                    Threat: {threatScore}%
                   </span>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#CBD5E1]/60 mb-1">
-                  Suspect Identifiers (Phone / Card / UPI ID)
+                <label className="block text-[10px] font-bold font-mono uppercase tracking-wider text-[#94a3b8] mb-1.5">
+                  Suspect Identifiers (Phone, Skype ID, WhatsApp, Account)
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="+91 98765 43210 or merchant@upi"
+                  placeholder="e.g. +91 98765-XXXXX or inspector.cbi@skype"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded bg-[#111827] border border-white/5 text-[#F8FAFC] placeholder-[#CBD5E1]/25 text-xs focus:outline-none focus:border-[#00BFA6] transition-colors"
+                  className="w-full px-3.5 py-2.5 bg-[#111827] border border-[#334155] rounded-xl text-white placeholder-[#94a3b8]/50 text-xs focus:outline-none focus:border-[#3b82f6] transition"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#CBD5E1]/60 mb-1">
-                  Incident Ledger Details
+                <label className="block text-[10px] font-bold font-mono uppercase tracking-wider text-[#94a3b8] mb-1.5">
+                  Coercion details / Demanded monetary amounts
                 </label>
                 <textarea
                   rows={3}
-                  placeholder="e.g. Coerced transfer to fake validation account..."
+                  placeholder="e.g. Fraudster demanded Rs 1.5 Lakhs transfer to prevent arrest warrant..."
                   value={incidentDetails}
                   onChange={(e) => setIncidentDetails(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded bg-[#111827] border border-white/5 text-[#F8FAFC] placeholder-[#CBD5E1]/25 text-xs focus:outline-none focus:border-[#00BFA6] transition-colors"
+                  className="w-full px-3.5 py-2.5 bg-[#111827] border border-[#334155] rounded-xl text-white placeholder-[#94a3b8]/50 text-xs focus:outline-none focus:border-[#3b82f6] transition resize-none leading-relaxed"
                 />
               </div>
 
-              {/* Emergency Warning */}
-              <div className="p-3 rounded bg-[#F59E0B]/5 border border-[#F59E0B]/20 text-[#F59E0B] text-xs flex items-center justify-between font-medium">
+              {/* Instant Emergency Call Box */}
+              <div className="p-3 bg-[#f59e0b]/5 border border-[#f59e0b]/20 rounded-xl text-[#f59e0b] text-[11px] flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <PhoneCall className="w-4 h-4 text-[#F59E0B]" />
-                  <span>Financial transaction active? Dial <strong>1930</strong>.</span>
+                  <PhoneCall className="w-3.5 h-3.5" />
+                  <span>Immediate loss? Call <strong>1930</strong> instantly.</span>
                 </div>
                 <a
                   href="tel:1930"
-                  className="px-2.5 py-1 rounded bg-[#F59E0B] hover:bg-[#F59E0B]/90 text-[#0B1220] font-bold text-[10px] transition-colors"
+                  className="px-2.5 py-1 bg-[#f59e0b] hover:bg-[#d97706] text-[#0f172a] font-bold text-[10px] rounded-lg transition font-mono uppercase"
                 >
-                  Dial 1930
+                  Call 1930
                 </a>
               </div>
 
-              <div className="pt-2 flex items-center justify-end gap-2.5">
+              <div className="pt-2 flex items-center justify-end gap-3 font-mono text-xs">
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="px-4 py-2 rounded text-xs font-bold text-[#CBD5E1] hover:text-[#F8FAFC] transition-colors"
+                  className="px-4 py-2 rounded-xl text-[#94a3b8] hover:text-white transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2.5 rounded bg-[#EF4444] hover:bg-[#EF4444]/90 text-white font-bold text-xs flex items-center gap-1.5 transition-colors shadow-md border border-[#EF4444]"
+                  className="px-5 py-2.5 bg-[#ef4444] hover:bg-[#dc2626] text-white font-bold rounded-xl flex items-center gap-1.5 transition shadow-lg shadow-red-500/10"
                 >
                   <Send className="w-3.5 h-3.5" />
-                  Log Incident
+                  <span>Submit Cyber Report</span>
                 </button>
               </div>
             </form>
           </div>
         ) : (
           <div className="text-center py-4 space-y-4">
-            <div className="w-14 h-14 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/20 text-[#22C55E] flex items-center justify-center mx-auto">
-              <CheckCircle2 className="w-8 h-8 font-bold" />
+            <div className="w-12 h-12 rounded-full bg-[#22c55e]/10 border border-[#22c55e]/20 text-[#22c55e] flex items-center justify-center mx-auto">
+              <CheckCircle2 className="w-6 h-6" />
             </div>
 
             <div>
-              <h3 className="text-lg font-bold text-[#F8FAFC]">
-                Incident Files Updated
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
+                Report Logged Successfully
               </h3>
-              <p className="text-xs text-[#CBD5E1]/60 mt-1 font-medium">
-                Your report has been logged with FraudCore Cyber Defense Hub.
+              <p className="text-xs text-[#94a3b8] mt-1.5 leading-relaxed">
+                Incident dossier uploaded to Fraud$core Cyber Defense & NCRB telemetry hub.
               </p>
             </div>
 
-            <div className="p-4 rounded bg-[#111827] border border-white/5 text-left space-y-2">
-              <div className="text-[10px] text-[#CBD5E1]/50 uppercase font-bold tracking-wider">
-                Official Incident Reference ID
+            <div className="p-4 bg-[#111827] border border-[#334155] rounded-xl text-left space-y-2 font-mono">
+              <div className="text-[10px] text-[#94a3b8] uppercase font-bold tracking-wider">
+                Incident Reference Code
               </div>
-              <div className="flex items-center justify-between bg-[#1A2332] p-2.5 rounded border border-white/5">
-                <span className="font-mono text-[#00BFA6] font-bold text-sm">
+              <div className="flex items-center justify-between bg-[#1e293b] p-2.5 rounded-lg border border-[#334155]">
+                <span className="text-[#38bdf8] font-bold text-sm">
                   {incidentId}
                 </span>
                 <button
                   onClick={copyIncidentId}
-                  className="px-2.5 py-1 rounded bg-[#111827] hover:bg-[#1A2332] border border-white/5 text-[#F8FAFC] text-[10px] font-bold flex items-center gap-1 transition-all"
+                  className="px-2.5 py-1 bg-[#111827] text-slate-300 hover:text-white text-[10px] flex items-center gap-1 border border-[#334155] rounded-lg transition"
                 >
-                  {copied ? <CheckCircle2 className="w-3 h-3 text-[#22C55E]" /> : <Copy className="w-3 h-3 text-[#CBD5E1]/60" />}
-                  {copied ? 'Copied' : 'Copy'}
+                  {copied ? <CheckCircle2 className="w-3 h-3 text-[#22c55e]" /> : <Copy className="w-3 h-3" />}
+                  <span>{copied ? 'Copied' : 'Copy'}</span>
                 </button>
               </div>
-              <p className="text-[10px] text-[#CBD5E1]/50 leading-normal">
-                NPCI Reference ID for tracking status.
+              <p className="text-[9px] text-[#94a3b8]/60 pt-1 leading-snug">
+                Reference ID is active for state police dispatch units and financial intelligence tracking.
               </p>
             </div>
 
-            <div className="flex items-center justify-center gap-2 pt-2">
+            <div className="flex items-center justify-center gap-3 pt-2 font-mono text-xs">
               <a
                 href="https://cybercrime.gov.in"
                 target="_blank"
                 rel="noreferrer"
-                className="px-3.5 py-2 rounded bg-[#111827] border border-white/5 hover:bg-[#1A2332] text-xs font-bold text-[#CBD5E1] flex items-center gap-1.5 transition-colors"
+                className="px-3.5 py-2 bg-[#111827] hover:bg-[#1e293b] border border-[#334155] text-slate-200 font-semibold rounded-xl flex items-center gap-1.5 transition"
               >
-                Go to cybercrime.gov.in <ExternalLink className="w-3.5 h-3.5" />
+                <span>cybercrime.gov.in</span>
+                <ExternalLink className="w-3.5 h-3.5" />
               </a>
               <button
                 onClick={resetForm}
-                className="px-4 py-2 rounded bg-[#00BFA6] text-[#0B1220] font-bold text-xs transition-colors"
+                className="px-5 py-2 bg-[#3b82f6] hover:bg-[#2563eb] text-white font-bold rounded-xl transition"
               >
                 Done
               </button>

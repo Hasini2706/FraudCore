@@ -1,168 +1,151 @@
-import React, { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { 
-  Activity, 
-  Search, 
-  BookOpen, 
-  Bot, 
-  Bell, 
-  Settings, 
-  User, 
-  PhoneCall, 
-  Menu,
-  X,
-  ShieldAlert,
-  CreditCard,
-  FileSpreadsheet
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import {
+  LayoutDashboard,
+  Search,
+  FileText,
+  Radio,
+  HelpCircle,
+  ChevronRight
 } from 'lucide-react';
 
-export const Sidebar: React.FC = () => {
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const location = useLocation();
+interface SidebarProps {
+  onOpenReportModal: () => void;
+}
 
-  const primaryNavItems = [
-    { label: 'Dashboard', path: '/dashboard', icon: Activity },
-    { label: 'Fraud Monitoring', path: '/analyzer', icon: Search },
-    { label: 'Transactions', path: '/dashboard?tab=transactions', icon: CreditCard },
-    { label: 'Complaints', path: '/dashboard?tab=complaints', icon: FileSpreadsheet },
-    { label: 'Investigations', path: '/assistant', icon: Bot },
-    { label: 'AI Analysis', path: '/analyzer?tab=ai', icon: ShieldAlert },
-    { label: 'Reports', path: '/about', icon: BookOpen },
-    { label: 'Alerts', path: '/dashboard?tab=alerts', icon: Bell },
+export const Sidebar: React.FC<SidebarProps> = ({
+  onOpenReportModal
+}) => {
+  const menuItems = [
+    {
+      label: 'Dashboard',
+      path: '/',
+      icon: LayoutDashboard,
+      type: 'route'
+    },
+    {
+      label: 'Scam Analyzer',
+      path: '/analyzer',
+      icon: Search,
+      type: 'route'
+    },
+    {
+      label: 'Citizen Reports',
+      onClick: onOpenReportModal,
+      icon: FileText,
+      type: 'action',
+      badge: '1930'
+    },
+    {
+      label: 'Command Center',
+      path: '/dashboard',
+      icon: Radio,
+      type: 'route',
+      badge: 'LIVE'
+    },
+    {
+      label: 'About & FAQ',
+      path: '/about',
+      icon: HelpCircle,
+      type: 'route'
+    }
   ];
 
-  const isLinkActive = (path: string) => {
-    if (path === '/') {
-      return location.pathname === '/';
-    }
-    return location.pathname.startsWith(path.split('?')[0]);
-  };
-
-  const SidebarContent = () => (
-    <div className="flex flex-col h-full bg-[#0F172A] border-r border-[rgba(255,255,255,0.08)] select-none text-sm text-[#CBD5E1]">
-      {/* Brand & Logo */}
-      <div className="p-6 border-b border-[rgba(255,255,255,0.08)] space-y-2 bg-[#0B1220]/40">
-        <NavLink to="/" className="flex items-center gap-3 group" onClick={() => setIsMobileOpen(false)}>
-          <div className="p-2 rounded-lg bg-[#00BFA6]/10 border border-[#00BFA6]/20 text-[#00BFA6] group-hover:bg-[#00BFA6]/20 transition-colors">
-            <ShieldAlert className="w-6 h-6" />
+  return (
+    <aside className="w-64 bg-[#111827] border-r border-[#334155] h-screen flex flex-col fixed left-0 top-0 z-30 select-none">
+      {/* Top Brand Header */}
+      <div className="p-6 border-b border-[#334155] flex flex-col gap-3">
+        <div className="flex items-center gap-3">
+          {/* Custom Government Insignia SVG */}
+          <div className="w-10 h-10 shrink-0 bg-[#1e293b] border border-[#334155] rounded-xl flex items-center justify-center p-1.5 shadow-inner">
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              {/* Outer circular crest */}
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" strokeWidth="4" />
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#22c55e" strokeWidth="2" />
+              {/* Inner Ashoka Chakra style wheel spokes */}
+              <circle cx="50" cy="50" r="16" fill="none" stroke="#f8fafc" strokeWidth="2" />
+              <path d="M50 10 L50 90 M10 50 L90 50 M22 22 L78 78 M22 78 L78 22" stroke="#38bdf8" strokeWidth="1" opacity="0.6" />
+              {/* Central star shield */}
+              <polygon points="50,22 58,38 76,38 62,48 67,66 50,56 33,66 38,48 24,38 42,38" fill="#3b82f6" />
+            </svg>
           </div>
           <div>
-            <span className="text-lg font-bold tracking-tight text-[#F8FAFC] font-manrope">
-              Fraud<span className="text-[#00BFA6]">Core</span>
+            <h1 className="text-sm font-bold text-[#f8fafc] leading-tight flex items-center gap-1.5 tracking-tight font-sans">
+              Fraud$core
+            </h1>
+            <span className="text-[9px] font-bold text-[#38bdf8] uppercase tracking-wider font-mono">
+              GOVT IA PANEL
             </span>
-            <div className="text-[10px] text-[#CBD5E1]/60 font-medium leading-none mt-0.5 uppercase tracking-wider">
-              Banking Intelligence
-            </div>
           </div>
-        </NavLink>
-        <div className="text-[9px] font-bold text-[#CBD5E1]/45 uppercase tracking-widest pt-1 leading-none font-space">
-          Enterprise Security Platform
+        </div>
+        <div className="text-[10px] uppercase tracking-widest text-[#94a3b8] font-bold leading-relaxed border-t border-[#334155]/60 pt-2 font-mono">
+          Public Safety Intelligence
         </div>
       </div>
 
-      {/* Main Navigation Sections */}
-      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-7">
-        <div className="space-y-1">
-          <div className="px-3 text-[10px] font-bold text-[#CBD5E1]/40 uppercase tracking-widest mb-2 font-space">
-            Core Operations
-          </div>
-          {primaryNavItems.map((item) => {
-            const Icon = item.icon;
-            const active = isLinkActive(item.path);
+      {/* Navigation Menu */}
+      <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto custom-scrollbar">
+        <div className="text-[10px] font-semibold text-[#94a3b8] uppercase tracking-wider px-3 mb-2 font-mono">
+          Security Menu
+        </div>
+        {menuItems.map((item, idx) => {
+          const Icon = item.icon;
+          if (item.type === 'route') {
             return (
               <NavLink
-                key={item.path}
-                to={item.path}
-                onClick={() => setIsMobileOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-xs transition-all ${
-                  active 
-                    ? 'bg-[#1D4ED8]/10 text-[#00BFA6] border border-[#00BFA6]/20 font-semibold' 
-                    : 'text-[#CBD5E1] hover:bg-[#1A2332] hover:text-[#F8FAFC]'
-                }`}
+                key={idx}
+                to={item.path!}
+                end={item.path === '/'}
+                className={({ isActive }) =>
+                  `w-full px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-between transition-all duration-150 ${
+                    isActive
+                      ? 'bg-[#3b82f6] text-[#f8fafc] shadow-md shadow-blue-500/20'
+                      : 'text-[#94a3b8] hover:text-[#f8fafc] hover:bg-[#1e293b]'
+                  }`
+                }
               >
-                <Icon className={`w-4 h-4 ${active ? 'text-[#00BFA6]' : 'text-[#CBD5E1]'}`} />
-                <span>{item.label}</span>
+                <div className="flex items-center gap-3">
+                  <Icon className="w-4.5 h-4.5 shrink-0" />
+                  <span>{item.label}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  {item.badge && (
+                    <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-red-500/20 text-red-400 border border-red-500/30 font-mono">
+                      {item.badge}
+                    </span>
+                  )}
+                  <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition" />
+                </div>
               </NavLink>
             );
-          })}
-        </div>
+          } else {
+            return (
+              <button
+                key={idx}
+                onClick={item.onClick}
+                className="w-full px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-between text-[#94a3b8] hover:text-[#f8fafc] hover:bg-[#1e293b] transition-all duration-150 text-left"
+              >
+                <div className="flex items-center gap-3">
+                  <Icon className="w-4.5 h-4.5 shrink-0" />
+                  <span>{item.label}</span>
+                </div>
+                {item.badge && (
+                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-[#3b82f6]/20 text-[#38bdf8] border border-[#3b82f6]/30 font-mono">
+                    {item.badge}
+                  </span>
+                )}
+              </button>
+            );
+          }
+        })}
+      </nav>
 
-        {/* System Settings & Actions */}
-        <div className="space-y-1">
-          <div className="px-3 text-[10px] font-bold text-[#CBD5E1]/40 uppercase tracking-widest mb-2 font-space">
-            Administration
-          </div>
-          
-          <button
-            onClick={() => alert('Settings Scope: Restriced access to Security Administrator (NPCI/VISA level).')}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-xs text-[#CBD5E1] hover:bg-[#1A2332] hover:text-[#F8FAFC] transition-all text-left"
-          >
-            <Settings className="w-4 h-4 text-[#CBD5E1]" />
-            <span>Settings</span>
-          </button>
-
-          <a
-            href="tel:1930"
-            className="flex items-center justify-between px-3 py-2.5 rounded-lg bg-[#F59E0B]/5 border border-[#F59E0B]/20 text-[#F59E0B] hover:bg-[#F59E0B]/10 font-bold text-[11px] transition-colors mt-2"
-          >
-            <span className="flex items-center gap-2">
-              <PhoneCall className="w-3.5 h-3.5" />
-              <span>National Helpline</span>
-            </span>
-            <span className="font-mono bg-[#F59E0B] text-[#0B1220] px-1.5 py-0.2 rounded text-[10px]">1930</span>
-          </a>
-        </div>
-      </div>
-
-      {/* User Profile Block at Bottom */}
-      <div className="p-4 border-t border-[rgba(255,255,255,0.08)] bg-[#0B1220]/50 flex items-center gap-3">
-        <div className="p-2 rounded-lg bg-[#1D4ED8] text-white">
-          <User className="w-4 h-4" />
-        </div>
-        <div className="overflow-hidden">
-          <div className="font-bold text-xs text-[#F8FAFC] truncate">Analyst. FraudCore</div>
-          <div className="text-[10px] text-[#CBD5E1]/60 font-medium leading-none mt-0.5 truncate">National Fraud Cell</div>
+      {/* Sidebar Footer Controls */}
+      <div className="p-4 border-t border-[#334155] bg-[#0c121e]">
+        <div className="text-center text-[9px] text-[#94a3b8]/60 font-mono">
+          HELPLINE PROTOCOL 1930
         </div>
       </div>
-    </div>
-  );
-
-  return (
-    <>
-      {/* Desktop Sidebar (Permanent) */}
-      <aside className="hidden lg:block w-64 h-screen sticky top-0 shrink-0 z-30">
-        <SidebarContent />
-      </aside>
-
-      {/* Mobile Top Bar */}
-      <div className="lg:hidden w-full h-14 bg-[#0F172A] border-b border-[rgba(255,255,255,0.08)] px-4 flex items-center justify-between sticky top-0 z-40">
-        <NavLink to="/" className="flex items-center gap-2">
-          <ShieldAlert className="w-5 h-5 text-[#00BFA6]" />
-          <span className="font-extrabold tracking-tight text-[#F8FAFC] text-base font-manrope">
-            Fraud<span className="text-[#00BFA6]">Core</span>
-          </span>
-        </NavLink>
-
-        <button
-          onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="p-2 rounded-lg border border-[rgba(255,255,255,0.08)] hover:bg-[#1A2332] text-[#CBD5E1]"
-        >
-          {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </div>
-
-      {/* Mobile Drawer Overlay */}
-      {isMobileOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 flex">
-          <div 
-            className="fixed inset-0 bg-[#0B1220]/60 backdrop-blur-sm" 
-            onClick={() => setIsMobileOpen(false)}
-          />
-          <div className="relative flex flex-col w-64 max-w-xs h-full z-10 animate-slide-in">
-            <SidebarContent />
-          </div>
-        </div>
-      )}
-    </>
+    </aside>
   );
 };

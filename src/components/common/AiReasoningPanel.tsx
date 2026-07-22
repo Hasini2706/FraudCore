@@ -6,10 +6,11 @@ import {
   Zap,
   TrendingUp,
   Clock,
-  MessageSquareCode,
   Layers,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  ShieldCheck,
+  FileSpreadsheet
 } from 'lucide-react';
 import type { ScamAnalysisResult } from '../../types/scam';
 
@@ -18,7 +19,7 @@ interface AiReasoningPanelProps {
 }
 
 export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) => {
-  const [activeTab, setActiveTab] = useState<'evidence' | 'language' | 'timeline' | 'sentences'>('evidence');
+  const [activeTab, setActiveTab] = useState<'summary' | 'evidence' | 'timeline' | 'language'>('summary');
   const [showDetails, setShowDetails] = useState(true);
 
   const {
@@ -31,168 +32,190 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
   } = result;
 
   return (
-    <div className="bg-[#1A2332] border border-white/5 rounded-xl p-6 space-y-6 shadow-md select-none text-[#F8FAFC]">
+    <div className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 space-y-5 text-left select-none">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#334155]">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-lg bg-[#00BFA6]/10 border border-[#00BFA6]/20 text-[#00BFA6]">
-            <Brain className="w-5 h-5 animate-pulse-slow" />
+          <div className="p-2 bg-[#111827] border border-[#334155] rounded-xl text-[#38bdf8]">
+            <Brain className="w-5 h-5" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-base font-bold text-[#F8FAFC] font-manrope">
-                Explainable AI (XAI) Security Audits
-              </h3>
-              <span className="px-2 py-0.5 rounded bg-[#00BFA6]/10 text-[#00BFA6] border border-[#00BFA6]/20 text-[9px] font-mono font-bold">
-                XAI v2.4
-              </span>
-            </div>
-            <p className="text-xs text-[#CBD5E1]/60">
-              Auditable evaluation of semantic patterns, coercion indicators, and threat reasoning
+            <h3 className="text-sm font-bold text-white tracking-tight">
+              Explainable AI (XAI) Audit Logs
+            </h3>
+            <p className="text-[10px] text-[#94a3b8]">
+              Automated NLP semantic mapping & coercion vector breakdown
             </p>
           </div>
         </div>
 
         <button
           onClick={() => setShowDetails(!showDetails)}
-          className="p-1.5 rounded-lg border border-white/5 bg-[#111827] text-[#CBD5E1] hover:text-[#F8FAFC] transition-colors flex items-center gap-1 text-xs self-start sm:self-auto font-bold"
+          className="px-2.5 py-1.5 bg-[#111827] border border-[#334155] text-xs font-semibold rounded-lg text-[#94a3b8] hover:text-white hover:bg-[#1e293b] transition flex items-center gap-1.5"
         >
-          {showDetails ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-          <span>{showDetails ? 'Collapse Details' : 'Expand Details'}</span>
+          {showDetails ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          <span>{showDetails ? 'Hide Dossier' : 'Show Dossier'}</span>
         </button>
       </div>
 
       {showDetails && (
-        <>
-          {/* Top Key Metrics Row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {/* Metric 1 */}
-            <div className="p-4 rounded-lg bg-[#111827] border border-white/5 space-y-1">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#CBD5E1]/65">
-                Explainability Score
-              </div>
-              <div className="text-xl font-extrabold text-[#00BFA6] font-mono">
-                {explainabilityScore}<span className="text-xs text-[#CBD5E1]/60 font-normal">/100</span>
-              </div>
-              <div className="text-[10px] text-[#22C55E] font-bold flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3" /> Fully Auditable
-              </div>
-            </div>
-
-            {/* Metric 2 */}
-            <div className="p-4 rounded-lg bg-[#111827] border border-white/5 space-y-1">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#CBD5E1]/65">
-                Model Confidence
-              </div>
-              <div className="text-xl font-extrabold text-[#F8FAFC] font-mono">
-                {confidence}%
-              </div>
-              <div className="text-[10px] text-[#00BFA6] font-bold flex items-center gap-1">
-                <Zap className="w-3 h-3" /> High Precision
-              </div>
-            </div>
-
-            {/* Metric 3 */}
-            <div className="p-4 rounded-lg bg-[#111827] border border-white/5 space-y-1">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#CBD5E1]/65">
-                Coercion Level
-              </div>
-              <div className="text-xl font-extrabold text-[#EF4444] font-mono">
-                {sentimentMetrics.coercionLevel}%
-              </div>
-              <div className="text-[10px] text-[#EF4444] font-bold flex items-center gap-1">
-                <AlertTriangle className="w-3 h-3" /> Severe Pressure
-              </div>
-            </div>
-
-            {/* Metric 4 */}
-            <div className="p-4 rounded-lg bg-[#111827] border border-white/5 space-y-1">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#CBD5E1]/65">
-                Vectors Matched
-              </div>
-              <div className="text-xl font-extrabold text-[#F59E0B] font-mono">
-                {result.patterns.length} <span className="text-xs text-[#CBD5E1]/60 font-normal font-sans">Types</span>
-              </div>
-              <div className="text-[10px] text-[#F59E0B] font-bold flex items-center gap-1">
-                <Layers className="w-3 h-3" /> Pattern Match
-              </div>
-            </div>
-          </div>
-
+        <div className="space-y-4">
           {/* Sub Navigation Tabs */}
-          <div className="flex items-center gap-1.5 border-b border-white/5 pb-2.5 overflow-x-auto">
+          <div className="flex items-center gap-2 border-b border-[#334155] pb-2 overflow-x-auto custom-scrollbar">
+            <button
+              onClick={() => setActiveTab('summary')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition whitespace-nowrap ${
+                activeTab === 'summary'
+                  ? 'bg-[#3b82f6] text-white shadow'
+                  : 'text-[#94a3b8] hover:text-white hover:bg-[#111827]'
+              }`}
+            >
+              <FileSpreadsheet className="w-3.5 h-3.5" />
+              Investigation Summary
+            </button>
+
             <button
               onClick={() => setActiveTab('evidence')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all whitespace-nowrap ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition whitespace-nowrap ${
                 activeTab === 'evidence'
-                  ? 'bg-[#1D4ED8]/10 text-[#00BFA6] border border-[#00BFA6]/20'
-                  : 'text-[#CBD5E1] hover:bg-[#111827] hover:text-[#F8FAFC]'
+                  ? 'bg-[#3b82f6] text-white shadow'
+                  : 'text-[#94a3b8] hover:text-white hover:bg-[#111827]'
               }`}
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>Evidence Checklist ({evidenceChecklist.length})</span>
+              Evidence Found ({evidenceChecklist.length})
             </button>
 
             <button
               onClick={() => setActiveTab('language')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all whitespace-nowrap ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition whitespace-nowrap ${
                 activeTab === 'language'
-                  ? 'bg-[#1D4ED8]/10 text-[#00BFA6] border border-[#00BFA6]/20'
-                  : 'text-[#CBD5E1] hover:bg-[#111827] hover:text-[#F8FAFC]'
+                  ? 'bg-[#3b82f6] text-white shadow'
+                  : 'text-[#94a3b8] hover:text-white hover:bg-[#111827]'
               }`}
             >
               <TrendingUp className="w-3.5 h-3.5" />
-              <span>Coercion Sentiment</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('sentences')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all whitespace-nowrap ${
-                activeTab === 'sentences'
-                  ? 'bg-[#1D4ED8]/10 text-[#00BFA6] border border-[#00BFA6]/20'
-                  : 'text-[#CBD5E1] hover:bg-[#111827] hover:text-[#F8FAFC]'
-              }`}
-            >
-              <MessageSquareCode className="w-3.5 h-3.5" />
-              <span>Sentence Highlights</span>
+              Coercion Metrics
             </button>
 
             <button
               onClick={() => setActiveTab('timeline')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all whitespace-nowrap ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition whitespace-nowrap ${
                 activeTab === 'timeline'
-                  ? 'bg-[#1D4ED8]/10 text-[#00BFA6] border border-[#00BFA6]/20'
-                  : 'text-[#CBD5E1] hover:bg-[#111827] hover:text-[#F8FAFC]'
+                  ? 'bg-[#3b82f6] text-white shadow'
+                  : 'text-[#94a3b8] hover:text-white hover:bg-[#111827]'
               }`}
             >
               <Clock className="w-3.5 h-3.5" />
-              <span>Timeline Mapping</span>
+              Scam Modus Timeline
             </button>
           </div>
 
-          {/* Tab Content 1: Evidence Checklist */}
-          {activeTab === 'evidence' && (
-            <div className="space-y-3 animate-fade-in">
-              <div className="text-xs text-[#CBD5E1]/60 font-bold mb-1">
-                AI Detected Indicators of Coercive Extortion:
+          {/* Tab Content 1: Investigation Summary Sheet */}
+          {activeTab === 'summary' && (
+            <div className="space-y-4 bg-[#111827] p-5 rounded-xl border border-[#334155]">
+              <div className="flex items-center justify-between pb-3 border-b border-[#334155]/60">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#94a3b8] font-mono">
+                  Investigation Report
+                </span>
+                <span className="text-[10px] font-mono text-[#38bdf8] bg-[#3b82f6]/10 px-2 py-0.5 rounded border border-[#3b82f6]/20">
+                  OFFICIAL AUDIT OK
+                </span>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                {/* Threat Classification & confidence */}
+                <div className="space-y-3">
+                  <div>
+                    <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono">Threat Classification</span>
+                    <span className="text-white font-bold text-sm mt-0.5 block">{result.category}</span>
+                  </div>
+                  <div>
+                    <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono">Confidence Level</span>
+                    <span className="text-[#38bdf8] font-bold text-sm mt-0.5 block">{confidence}% (NLP Precision)</span>
+                  </div>
+                  <div>
+                    <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono">Impersonated Entity</span>
+                    <span className="text-[#ef4444] font-bold text-sm mt-0.5 block">{result.impersonatedEntity || 'Unknown Authority'}</span>
+                  </div>
+                </div>
+
+                {/* Checklist Reasons */}
+                <div className="space-y-2.5">
+                  <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono">
+                    Psychological Markers Found
+                  </span>
+                  <ul className="space-y-1.5">
+                    <li className="flex items-center gap-2 text-slate-200">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444] shrink-0"></span>
+                      <span>Claimed to represent CBI / Authority</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-200">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444] shrink-0"></span>
+                      <span>Used intimidation & legal threats</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-200">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444] shrink-0"></span>
+                      <span>Demanded immediate RTGS/UPI payment</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-200">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444] shrink-0"></span>
+                      <span>Attempted to isolate victim ("don't hang up")</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-200">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444] shrink-0"></span>
+                      <span>Requested confidential bank details</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Recommended Actions */}
+              <div className="pt-3.5 border-t border-[#334155]/60">
+                <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono mb-2">
+                  Immediate Recommended Actions
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div className="p-2.5 bg-[#1e293b] border border-[#334155] rounded-lg text-center">
+                    <span className="text-[#ef4444] font-bold block text-[10px] uppercase font-mono">1. DISCONNECT</span>
+                    <span className="text-[10px] text-[#94a3b8] mt-0.5 block">End video call now</span>
+                  </div>
+                  <div className="p-2.5 bg-[#1e293b] border border-[#334155] rounded-lg text-center">
+                    <span className="text-[#ef4444] font-bold block text-[10px] uppercase font-mono">2. REPORT TO 1930</span>
+                    <span className="text-[10px] text-[#94a3b8] mt-0.5 block">Freeze mule account</span>
+                  </div>
+                  <div className="p-2.5 bg-[#1e293b] border border-[#334155] rounded-lg text-center">
+                    <span className="text-[#ef4444] font-bold block text-[10px] uppercase font-mono">3. HALT TRANSFERS</span>
+                    <span className="text-[10px] text-[#94a3b8] mt-0.5 block">Do not transfer funds</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab Content 2: Evidence Checklist */}
+          {activeTab === 'evidence' && (
+            <div className="space-y-3">
+              <div className="text-xs text-[#94a3b8] font-semibold mb-1">
+                Extracted Evidence Sentences & Severity Level:
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {evidenceChecklist.map((item, idx) => (
                   <div
                     key={idx}
-                    className="p-3.5 rounded-lg bg-[#111827] border border-white/5 hover:border-white/10 transition-all flex items-start gap-3 shadow-md"
+                    className="p-3.5 bg-[#111827] border border-[#334155]/60 hover:border-[#475569] rounded-xl flex items-start gap-3 transition"
                   >
-                    <div className="p-1 rounded-md bg-[#22C55E]/10 text-[#22C55E] mt-0.5 shrink-0">
-                      <CheckCircle2 className="w-4 h-4" />
+                    <div className="p-1 rounded-lg bg-[#22c55e]/10 text-[#22c55e] border border-[#22c55e]/20 mt-0.5 shrink-0">
+                      <ShieldCheck className="w-3.5 h-3.5" />
                     </div>
-                    <div>
-                      <div className="text-xs font-bold text-[#F8FAFC] flex items-center gap-2">
+                    <div className="text-xs">
+                      <div className="font-bold text-white flex items-center gap-2">
                         <span>{item.title}</span>
-                        <span className="text-[8px] font-mono px-1.5 py-0.5 rounded bg-[#1A2332] text-[#00BFA6] border border-white/5 uppercase font-bold">
+                        <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-[#1e293b] text-[#38bdf8] border border-[#334155]">
                           {item.category}
                         </span>
                       </div>
-                      <p className="text-[11px] text-[#CBD5E1]/60 mt-1 leading-relaxed">
+                      <p className="text-[11px] text-[#94a3b8] mt-1 leading-relaxed">
                         {item.description}
                       </p>
                     </div>
@@ -202,23 +225,23 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
             </div>
           )}
 
-          {/* Tab Content 2: Language & Coercion Sentiment */}
+          {/* Tab Content 3: Language & Coercion Sentiment */}
           {activeTab === 'language' && (
-            <div className="space-y-4 animate-fade-in">
-              <div className="text-xs text-[#CBD5E1]/60 font-bold">
-                Coercive Sentiment Levels Matrix:
+            <div className="space-y-4">
+              <div className="text-xs text-[#94a3b8] font-semibold">
+                Estimated Psychological Pressure Ratios:
               </div>
 
-              <div className="space-y-3.5">
+              <div className="space-y-3 bg-[#111827] p-4 rounded-xl border border-[#334155]/60 text-xs">
                 {/* Meter 1 */}
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#F8FAFC] font-semibold">Fear & Panic Inducement</span>
-                    <span className="font-mono font-bold text-[#EF4444]">{sentimentMetrics.fearUrgency}%</span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-300">Fear & Panic Inducement</span>
+                    <span className="font-mono font-bold text-[#ef4444]">{sentimentMetrics.fearUrgency}%</span>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-[#111827] overflow-hidden">
+                  <div className="w-full h-1.5 rounded-full bg-[#1e293b] overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-[#F59E0B] to-[#EF4444] transition-all duration-700"
+                      className="h-full bg-[#ef4444] transition-all duration-1000"
                       style={{ width: `${sentimentMetrics.fearUrgency}%` }}
                     ></div>
                   </div>
@@ -226,13 +249,13 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
 
                 {/* Meter 2 */}
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#F8FAFC] font-semibold">Authority Impersonation Signal</span>
-                    <span className="font-mono font-bold text-[#1D4ED8]">{sentimentMetrics.authorityImpersonation}%</span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-300">Authority Impersonation Signal</span>
+                    <span className="font-mono font-bold text-[#38bdf8]">{sentimentMetrics.authorityImpersonation}%</span>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-[#111827] overflow-hidden">
+                  <div className="w-full h-1.5 rounded-full bg-[#1e293b] overflow-hidden">
                     <div
-                      className="h-full bg-[#1D4ED8] transition-all duration-700"
+                      className="h-full bg-[#38bdf8] transition-all duration-1000"
                       style={{ width: `${sentimentMetrics.authorityImpersonation}%` }}
                     ></div>
                   </div>
@@ -240,13 +263,13 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
 
                 {/* Meter 3 */}
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#F8FAFC] font-semibold">Forced Video Isolation Level</span>
-                    <span className="font-mono font-bold text-[#00BFA6]">{sentimentMetrics.coercionLevel}%</span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-300">Forced Video Isolation Level</span>
+                    <span className="font-mono font-bold text-[#f59e0b]">{sentimentMetrics.coercionLevel}%</span>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-[#111827] overflow-hidden">
+                  <div className="w-full h-1.5 rounded-full bg-[#1e293b] overflow-hidden">
                     <div
-                      className="h-full bg-[#00BFA6] transition-all duration-700"
+                      className="h-full bg-[#f59e0b] transition-all duration-1000"
                       style={{ width: `${sentimentMetrics.coercionLevel}%` }}
                     ></div>
                   </div>
@@ -254,13 +277,13 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
 
                 {/* Meter 4 */}
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#F8FAFC] font-semibold">Financial Extortion Demand Pressure</span>
-                    <span className="font-mono font-bold text-[#00BFA6]">{sentimentMetrics.financialPressure}%</span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-300">Financial Extortion Demand Pressure</span>
+                    <span className="font-mono font-bold text-white">{sentimentMetrics.financialPressure}%</span>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-[#111827] overflow-hidden">
+                  <div className="w-full h-1.5 rounded-full bg-[#1e293b] overflow-hidden">
                     <div
-                      className="h-full bg-[#00BFA6] transition-all duration-700"
+                      className="h-full bg-white transition-all duration-1000"
                       style={{ width: `${sentimentMetrics.financialPressure}%` }}
                     ></div>
                   </div>
@@ -269,70 +292,26 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
             </div>
           )}
 
-          {/* Tab Content 3: Suspicious Sentence Highlights */}
-          {activeTab === 'sentences' && (
-            <div className="space-y-3 animate-fade-in">
-              <div className="text-xs text-[#CBD5E1]/60 font-bold">
-                Extracted Coercive Phrasings from Input:
-              </div>
-
-              <div className="space-y-2.5">
-                {highlightedSentences.map((sent, idx) => (
-                  <div
-                    key={idx}
-                    className={`p-3.5 rounded-lg border text-xs leading-relaxed space-y-1.5 ${
-                      sent.severity === 'critical'
-                        ? 'bg-red-950/20 border-red-900/40 text-red-100'
-                        : 'bg-amber-950/20 border-amber-900/40 text-amber-100'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-[#00BFA6] uppercase tracking-wider text-[9px] font-space">
-                        Pattern: {sent.patternType}
-                      </span>
-                      <span
-                        className={`text-[8px] font-bold px-2 py-0.5 rounded border uppercase ${
-                          sent.severity === 'critical'
-                            ? 'bg-red-900/50 text-[#EF4444] border-red-800'
-                            : 'bg-amber-900/50 text-[#F59E0B] border-amber-800'
-                        }`}
-                      >
-                        {sent.severity} Severity
-                      </span>
-                    </div>
-                    <p className="font-mono font-medium text-[#F8FAFC]">
-                      "{sent.text}"
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Tab Content 4: Scam Timeline Progression */}
           {activeTab === 'timeline' && (
-            <div className="space-y-3 animate-fade-in">
-              <div className="text-xs text-[#CBD5E1]/60 font-bold mb-2">
-                Phased Evolution of Modus Operandi:
+            <div className="space-y-4">
+              <div className="text-xs text-[#94a3b8] font-semibold mb-1">
+                Phased Evolution of Digital Arrest Modus Operandi:
               </div>
 
-              <div className="relative pl-6 border-l border-white/10 space-y-4">
+              <div className="relative pl-6 border-l border-[#334155] space-y-4">
                 {scamTimeline.map((step) => (
-                  <div key={step.step} className="relative">
-                    <div className="absolute -left-[31px] top-0.5 w-4 h-4 rounded-full bg-[#1A2332] border border-[#00BFA6] flex items-center justify-center text-[9px] font-mono font-bold text-[#00BFA6]">
+                  <div key={step.step} className="relative text-xs">
+                    <div className="absolute -left-[30px] top-0.5 w-4.5 h-4.5 rounded-full bg-[#111827] border border-[#334155] flex items-center justify-center text-[9px] font-mono font-bold text-[#38bdf8]">
                       {step.step}
                     </div>
 
-                    <div className="p-3 bg-[#111827] border border-white/5 rounded-lg text-xs space-y-1 shadow-md font-medium">
+                    <div className="p-3 bg-[#111827] border border-[#334155]/60 rounded-xl space-y-1">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-[#F8FAFC]">
-                          {step.phase}
-                        </span>
-                        <span className="font-mono text-[9px] text-[#CBD5E1]/45 font-semibold bg-[#1A2332] px-1.5 py-0.2 rounded border border-white/5">
-                          {step.timeOffset}
-                        </span>
+                        <span className="font-bold text-white">{step.phase}</span>
+                        <span className="font-mono text-[9px] text-[#94a3b8]">{step.timeOffset}</span>
                       </div>
-                      <p className="text-[#CBD5E1]/70 text-[11px] leading-relaxed font-sans">
+                      <p className="text-[#94a3b8] text-[11px] leading-relaxed">
                         {step.description}
                       </p>
                     </div>
@@ -341,7 +320,7 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
               </div>
             </div>
           )}
-        </>
+        </div>
       )}
     </div>
   );
