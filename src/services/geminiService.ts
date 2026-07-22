@@ -41,7 +41,7 @@ Conversation:
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
+      model: "gemini-3.6-flash",
       contents: prompt,
       config: {
         systemInstruction: systemPrompt,
@@ -67,16 +67,16 @@ Conversation:
       title: parsed.detectedPatterns?.[idx] || 'Suspicious Vector',
       description: reason,
       verified: true,
-      category: reason.toLowerCase().includes('authority') ? 'Authority' : 
-                reason.toLowerCase().includes('money') || reason.toLowerCase().includes('pay') ? 'Financial' : 
-                reason.toLowerCase().includes('isolate') ? 'Isolation' : 'Pressure'
+      category: reason.toLowerCase().includes('authority') ? 'Authority' :
+        reason.toLowerCase().includes('money') || reason.toLowerCase().includes('pay') ? 'Financial' :
+          reason.toLowerCase().includes('isolate') ? 'Isolation' : 'Pressure'
     }));
 
     // Build highlighted sentences dynamically
     const highlightedSentences: HighlightedSentence[] = [];
     const sentences = text.split(/[.!?]+/).map(s => s.trim()).filter(Boolean);
     sentences.forEach((sentence) => {
-      const matchedKeyword = (parsed.keywordsDetected || []).find((kw: string) => 
+      const matchedKeyword = (parsed.keywordsDetected || []).find((kw: string) =>
         sentence.toLowerCase().includes(kw.toLowerCase())
       );
       if (matchedKeyword) {
@@ -118,7 +118,7 @@ Conversation:
     };
   } catch (err: any) {
     console.error("Gemini API Error details:", err);
-    
+
     let userFriendlyMessage = err.message || "Unknown API Error";
     try {
       const errorObj = JSON.parse(err.message);
@@ -128,7 +128,7 @@ Conversation:
     } catch (e) {
       // Plain text error message
     }
-    
+
     throw new Error(userFriendlyMessage);
   }
 }

@@ -30,11 +30,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
       type: 'route'
     },
     {
-      label: 'Citizen Reports',
+      label: 'Evidence Generator',
       onClick: onOpenReportModal,
       icon: FileText,
-      type: 'action',
-      badge: '1930'
+      type: 'action'
     },
     {
       label: 'Command Center',

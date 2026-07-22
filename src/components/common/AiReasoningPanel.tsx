@@ -41,10 +41,10 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
           </div>
           <div>
             <h3 className="text-sm font-bold text-white tracking-tight">
-              Explainable AI (XAI) Audit Logs
+              Why We Think This Is a Scam
             </h3>
             <p className="text-[10px] text-[#94a3b8]">
-              Automated NLP semantic mapping & coercion vector breakdown
+              Our AI checked the conversation and found these warning signs.
             </p>
           </div>
         </div>
@@ -54,7 +54,7 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
           className="px-2.5 py-1.5 bg-[#111827] border border-[#334155] text-xs font-semibold rounded-lg text-[#94a3b8] hover:text-white hover:bg-[#1e293b] transition flex items-center gap-1.5"
         >
           {showDetails ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-          <span>{showDetails ? 'Hide Dossier' : 'Show Dossier'}</span>
+          <span>{showDetails ? 'Hide Details' : 'Show Details'}</span>
         </button>
       </div>
 
@@ -71,7 +71,7 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
               }`}
             >
               <FileSpreadsheet className="w-3.5 h-3.5" />
-              Investigation Summary
+              Summary
             </button>
 
             <button
@@ -83,7 +83,7 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
               }`}
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
-              Evidence Found ({evidenceChecklist.length})
+              Warning Signs ({evidenceChecklist.length})
             </button>
 
             <button
@@ -95,7 +95,7 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
               }`}
             >
               <TrendingUp className="w-3.5 h-3.5" />
-              Coercion Metrics
+              Risk Level
             </button>
 
             <button
@@ -107,19 +107,19 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
               }`}
             >
               <Clock className="w-3.5 h-3.5" />
-              Scam Modus Timeline
+              Scam Timeline
             </button>
           </div>
 
-          {/* Tab Content 1: Investigation Summary Sheet */}
+          {/* Tab Content 1: Summary Sheet */}
           {activeTab === 'summary' && (
             <div className="space-y-4 bg-[#111827] p-5 rounded-xl border border-[#334155]">
               <div className="flex items-center justify-between pb-3 border-b border-[#334155]/60">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#94a3b8] font-mono">
-                  Investigation Report
+                  SCAN RESULTS
                 </span>
                 <span className="text-[10px] font-mono text-[#38bdf8] bg-[#3b82f6]/10 px-2 py-0.5 rounded border border-[#3b82f6]/20">
-                  OFFICIAL AUDIT OK
+                  Analysis Complete
                 </span>
               </div>
 
@@ -127,44 +127,44 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
                 {/* Threat Classification & confidence */}
                 <div className="space-y-3">
                   <div>
-                    <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono">Threat Classification</span>
+                    <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono">Scam Type</span>
                     <span className="text-white font-bold text-sm mt-0.5 block">{result.category}</span>
                   </div>
                   <div>
-                    <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono">Confidence Level</span>
-                    <span className="text-[#38bdf8] font-bold text-sm mt-0.5 block">{confidence}% (NLP Precision)</span>
+                    <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono">AI Confidence</span>
+                    <span className="text-[#38bdf8] font-bold text-sm mt-0.5 block">{confidence}%</span>
                   </div>
                   <div>
-                    <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono">Impersonated Entity</span>
-                    <span className="text-[#ef4444] font-bold text-sm mt-0.5 block">{result.impersonatedEntity || 'Unknown Authority'}</span>
+                    <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono">Pretended To Be</span>
+                    <span className="text-[#ef4444] font-bold text-sm mt-0.5 block">{result.impersonatedEntity || 'Unknown Caller'}</span>
                   </div>
                 </div>
 
                 {/* Checklist Reasons */}
                 <div className="space-y-2.5">
                   <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono">
-                    Psychological Markers Found
+                    Why We Flagged It
                   </span>
                   <ul className="space-y-1.5">
                     <li className="flex items-center gap-2 text-slate-200">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444] shrink-0"></span>
-                      <span>Claimed to represent CBI / Authority</span>
+                      <span>Pretended to be a police or government officer</span>
                     </li>
                     <li className="flex items-center gap-2 text-slate-200">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444] shrink-0"></span>
-                      <span>Used intimidation & legal threats</span>
+                      <span>Tried to scare you with legal threats</span>
                     </li>
                     <li className="flex items-center gap-2 text-slate-200">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444] shrink-0"></span>
-                      <span>Demanded immediate RTGS/UPI payment</span>
+                      <span>Asked you to send money immediately</span>
                     </li>
                     <li className="flex items-center gap-2 text-slate-200">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444] shrink-0"></span>
-                      <span>Attempted to isolate victim ("don't hang up")</span>
+                      <span>Told you not to end the call</span>
                     </li>
                     <li className="flex items-center gap-2 text-slate-200">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444] shrink-0"></span>
-                      <span>Requested confidential bank details</span>
+                      <span>Asked for your bank or personal details</span>
                     </li>
                   </ul>
                 </div>
@@ -173,20 +173,20 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
               {/* Recommended Actions */}
               <div className="pt-3.5 border-t border-[#334155]/60">
                 <span className="text-[#94a3b8] block text-[10px] font-semibold uppercase font-mono mb-2">
-                  Immediate Recommended Actions
+                  What You Should Do
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   <div className="p-2.5 bg-[#1e293b] border border-[#334155] rounded-lg text-center">
-                    <span className="text-[#ef4444] font-bold block text-[10px] uppercase font-mono">1. DISCONNECT</span>
-                    <span className="text-[10px] text-[#94a3b8] mt-0.5 block">End video call now</span>
+                    <span className="text-[#ef4444] font-bold block text-[10px] uppercase font-mono">End the Call</span>
+                    <span className="text-[10px] text-[#94a3b8] mt-0.5 block">Disconnect call now</span>
                   </div>
                   <div className="p-2.5 bg-[#1e293b] border border-[#334155] rounded-lg text-center">
-                    <span className="text-[#ef4444] font-bold block text-[10px] uppercase font-mono">2. REPORT TO 1930</span>
-                    <span className="text-[10px] text-[#94a3b8] mt-0.5 block">Freeze mule account</span>
+                    <span className="text-[#ef4444] font-bold block text-[10px] uppercase font-mono">Report to 1930</span>
+                    <span className="text-[10px] text-[#94a3b8] mt-0.5 block">Report the caller</span>
                   </div>
                   <div className="p-2.5 bg-[#1e293b] border border-[#334155] rounded-lg text-center">
-                    <span className="text-[#ef4444] font-bold block text-[10px] uppercase font-mono">3. HALT TRANSFERS</span>
-                    <span className="text-[10px] text-[#94a3b8] mt-0.5 block">Do not transfer funds</span>
+                    <span className="text-[#ef4444] font-bold block text-[10px] uppercase font-mono">Do Not Send Money</span>
+                    <span className="text-[10px] text-[#94a3b8] mt-0.5 block">Stop any transfers</span>
                   </div>
                 </div>
               </div>
@@ -197,7 +197,7 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
           {activeTab === 'evidence' && (
             <div className="space-y-3">
               <div className="text-xs text-[#94a3b8] font-semibold mb-1">
-                Extracted Evidence Sentences & Severity Level:
+                Scam Warnings Found:
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {evidenceChecklist.map((item, idx) => (
@@ -229,14 +229,14 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
           {activeTab === 'language' && (
             <div className="space-y-4">
               <div className="text-xs text-[#94a3b8] font-semibold">
-                Estimated Psychological Pressure Ratios:
+                Threat Indicators:
               </div>
 
               <div className="space-y-3 bg-[#111827] p-4 rounded-xl border border-[#334155]/60 text-xs">
                 {/* Meter 1 */}
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-300">Fear & Panic Inducement</span>
+                    <span className="text-slate-300">Intimidation & Scaring Tactics</span>
                     <span className="font-mono font-bold text-[#ef4444]">{sentimentMetrics.fearUrgency}%</span>
                   </div>
                   <div className="w-full h-1.5 rounded-full bg-[#1e293b] overflow-hidden">
@@ -250,7 +250,7 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
                 {/* Meter 2 */}
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-300">Authority Impersonation Signal</span>
+                    <span className="text-slate-300">Pretended Authority Signal</span>
                     <span className="font-mono font-bold text-[#38bdf8]">{sentimentMetrics.authorityImpersonation}%</span>
                   </div>
                   <div className="w-full h-1.5 rounded-full bg-[#1e293b] overflow-hidden">
@@ -264,7 +264,7 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
                 {/* Meter 3 */}
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-300">Forced Video Isolation Level</span>
+                    <span className="text-slate-300">Isolation Level</span>
                     <span className="font-mono font-bold text-[#f59e0b]">{sentimentMetrics.coercionLevel}%</span>
                   </div>
                   <div className="w-full h-1.5 rounded-full bg-[#1e293b] overflow-hidden">
@@ -278,7 +278,7 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
                 {/* Meter 4 */}
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-300">Financial Extortion Demand Pressure</span>
+                    <span className="text-slate-300">Pressure to Send Money</span>
                     <span className="font-mono font-bold text-white">{sentimentMetrics.financialPressure}%</span>
                   </div>
                   <div className="w-full h-1.5 rounded-full bg-[#1e293b] overflow-hidden">
@@ -296,7 +296,7 @@ export const AiReasoningPanel: React.FC<AiReasoningPanelProps> = ({ result }) =>
           {activeTab === 'timeline' && (
             <div className="space-y-4">
               <div className="text-xs text-[#94a3b8] font-semibold mb-1">
-                Phased Evolution of Digital Arrest Modus Operandi:
+                Timeline of the Scam:
               </div>
 
               <div className="relative pl-6 border-l border-[#334155] space-y-4">

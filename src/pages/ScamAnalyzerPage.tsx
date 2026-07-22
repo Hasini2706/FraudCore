@@ -50,9 +50,9 @@ export const ScamAnalyzerPage: React.FC = () => {
     try {
       const result = await analyzeScam(inputText);
       setAnalysisResult(result);
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
-      setAnalysisError("Unable to analyze conversation right now.");
+      setAnalysisError(e.message || "Unable to analyze conversation right now.");
     } finally {
       setIsAnalyzing(false);
     }
@@ -378,14 +378,14 @@ export const ScamAnalyzerPage: React.FC = () => {
             {/* Input area */}
             <div className="space-y-1.5 text-left">
               <div className="flex justify-between items-center">
-                <label className="text-xs font-bold text-slate-200">Compiled Evidence Text Stream</label>
-                <span className="text-[10px] text-[#94a3b8] font-mono">{inputText.length} chars</span>
+                <label className="text-xs font-bold text-slate-200">Conversation to Scan</label>
+                <span className="text-[10px] text-[#94a3b8] font-mono">{inputText.length} characters</span>
               </div>
               <textarea
                 rows={8}
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                placeholder="Extract text or type evidence logs for AI parser reasoning..."
+                placeholder="Paste or type the conversation here to check it for scams..."
                 className="w-full p-4 bg-[#111827] border border-[#334155] rounded-xl text-[#f8fafc] placeholder-[#94a3b8]/50 text-xs font-sans focus:outline-none focus:border-[#3b82f6] transition resize-none leading-relaxed"
               />
             </div>
@@ -400,12 +400,12 @@ export const ScamAnalyzerPage: React.FC = () => {
               {isAnalyzing ? (
                 <>
                   <RefreshCw className="w-4.5 h-4.5 animate-spin" />
-                  <span>AI Parsing Transcripts...</span>
+                  <span>Checking Conversation...</span>
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-4.5 h-4.5" />
-                  <span>Inference Coercion Vectors</span>
+                  <Search className="w-4.5 h-4.5" />
+                  <span>SCAN CONVERSATION</span>
                 </>
               )}
             </button>
@@ -416,12 +416,12 @@ export const ScamAnalyzerPage: React.FC = () => {
         <div className="lg:col-span-6 space-y-6">
           {analysisError && (
             <div className="gov-card p-6 border-red-500/20 bg-red-500/10 text-red-400 text-xs space-y-3 text-left">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-red-400">
                 <AlertTriangle className="w-5 h-5 shrink-0" />
-                <span className="font-bold">{analysisError}</span>
+                <span className="font-bold">Gemini API Error</span>
               </div>
-              <p className="text-[11px] text-slate-400">
-                Please check that VITE_GEMINI_API_KEY is configured in your environment variables and you are connected to the network.
+              <p className="text-[11px] text-red-300 font-mono bg-red-950/35 p-3.5 rounded-lg border border-red-500/10 break-all whitespace-pre-wrap leading-normal">
+                {analysisError}
               </p>
               <button
                 onClick={handleAnalyze}
@@ -441,7 +441,7 @@ export const ScamAnalyzerPage: React.FC = () => {
               <div>
                 <h3 className="text-sm font-bold text-white">System Idle</h3>
                 <p className="text-xs text-[#94a3b8] mt-1.5 max-w-xs mx-auto leading-relaxed">
-                  Upload evidence files or load a preset, then click <strong>"Inference Coercion Vectors"</strong> to compile the XAI report.
+                  Upload files or load a preset, then click <strong>"SCAN CONVERSATION"</strong> to check for scams.
                 </p>
               </div>
             </div>
@@ -450,9 +450,9 @@ export const ScamAnalyzerPage: React.FC = () => {
             <div className="gov-card p-8 text-center space-y-4 min-h-[460px] flex flex-col items-center justify-center">
               <div className="w-12 h-12 border-2 border-[#3b82f6]/20 border-t-[#3b82f6] rounded-full animate-spin"></div>
               <div>
-                <h3 className="text-xs font-bold text-white tracking-wide">NLP Model Reasoning...</h3>
+                <h3 className="text-xs font-bold text-white tracking-wide">Checking conversation...</h3>
                 <p className="text-[10px] text-[#94a3b8] mt-1 font-mono">
-                  Checking databases, authority references, and video isolation signatures
+                  Checking for warning signs and safety markers...
                 </p>
               </div>
             </div>
@@ -463,13 +463,13 @@ export const ScamAnalyzerPage: React.FC = () => {
                 {/* Header row */}
                 <div className="flex justify-between items-center pb-3 border-b border-[#334155]">
                   <div className="text-left">
-                    <span className="text-[9px] font-bold text-[#94a3b8] uppercase font-mono tracking-wider">Classification</span>
+                    <span className="text-[9px] font-bold text-[#94a3b8] uppercase font-mono tracking-wider">Scam Type</span>
                     <h3 className="text-base font-bold text-white mt-0.5">{analysisResult.category}</h3>
                   </div>
                   <div className="text-right">
-                    <span className="text-[9px] font-bold text-[#94a3b8] uppercase font-mono tracking-wider">Target Agency</span>
+                    <span className="text-[9px] font-bold text-[#94a3b8] uppercase font-mono tracking-wider">Pretended To Be</span>
                     <div className="text-xs font-bold text-[#38bdf8] font-mono mt-0.5">
-                      {analysisResult.impersonatedEntity || 'CBI Officer'}
+                      {analysisResult.impersonatedEntity || 'Unknown Caller'}
                     </div>
                   </div>
                 </div>
@@ -486,15 +486,15 @@ export const ScamAnalyzerPage: React.FC = () => {
                   {/* Highlighted stats info box */}
                   <div className="p-4 bg-[#111827] border border-[#334155] rounded-xl text-xs space-y-2.5 font-mono text-left">
                     <div className="flex justify-between items-center">
-                      <span className="text-[#94a3b8]">Threat Score:</span>
+                      <span className="text-[#94a3b8]">Scam Risk Score:</span>
                       <span className="text-[#ef4444] font-bold">{analysisResult.threatScore}%</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-[#94a3b8]">Inference Confidence:</span>
+                      <span className="text-[#94a3b8]">AI Confidence:</span>
                       <span className="text-[#38bdf8] font-bold">{analysisResult.confidence}%</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-[#94a3b8]">Coercion Severity:</span>
+                      <span className="text-[#94a3b8]">Risk Level:</span>
                       <span className="text-[#ef4444] font-bold">{analysisResult.risk}</span>
                     </div>
                   </div>
@@ -504,7 +504,7 @@ export const ScamAnalyzerPage: React.FC = () => {
                 <div className="p-4 bg-[#f59e0b]/5 border border-[#f59e0b]/20 rounded-xl space-y-2 text-left">
                   <h4 className="text-[10px] font-bold uppercase tracking-wider text-[#f59e0b] flex items-center gap-1.5 font-mono">
                     <AlertTriangle className="w-3.5 h-3.5" />
-                    Enforcement Directive safety guidelines
+                    What You Should Do
                   </h4>
                   <ul className="space-y-1.5 text-[11px] text-slate-300">
                     {analysisResult.recommendations.map((rec, index) => (
@@ -522,8 +522,8 @@ export const ScamAnalyzerPage: React.FC = () => {
                     onClick={() => setIsReportModalOpen(true)}
                     className="w-full py-2.5 bg-[#ef4444] hover:bg-[#dc2626] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition duration-150 shadow-md shadow-red-500/10"
                   >
-                    <PhoneCall className="w-4 h-4" />
-                    <span>File Incident Report (1930)</span>
+                    <FileText className="w-4 h-4" />
+                    <span>Save Scam Evidence</span>
                   </button>
 
                   <button
@@ -547,7 +547,7 @@ export const ScamAnalyzerPage: React.FC = () => {
                     className="text-[#38bdf8] hover:text-[#0ea5e9] flex items-center gap-1 transition"
                   >
                     {copiedDossier ? <Check className="w-3 h-3 text-[#22c55e]" /> : <Copy className="w-3 h-3" />}
-                    <span>{copiedDossier ? 'JSON Dossier Copied' : 'Export JSON Log'}</span>
+                    <span>{copiedDossier ? 'Scan Data Copied' : 'Copy Scan Data'}</span>
                   </button>
                   <span>{new Date(analysisResult.analyzedAt || new Date().toISOString()).toLocaleTimeString()}</span>
                 </div>

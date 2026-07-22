@@ -350,7 +350,7 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
   const handleSaveInvestigation = () => {
     setSavedReport(true);
     setTimeout(() => {
-      alert("Investigation report successfully saved to the Fraud$core Central Case Registry.");
+      alert("Report successfully saved to your safety registry.");
     }, 200);
   };
 
@@ -377,35 +377,35 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
         </head>
         <body>
           <div class="header">
-            <div class="logo">Fraud$core Intelligence Portal</div>
+            <div class="logo">Fraud$core Cyber Safety Assistant</div>
             <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px;">AI-Powered Fraud Intelligence Platform</div>
           </div>
           <div class="meta">
-            <strong>DOCUMENT ID:</strong> FSC-LIVE-${Date.now().toString().slice(-6)}<br/>
+            <strong>DOCUMENT ID:</strong> FSC-SCAN-${Date.now().toString().slice(-6)}<br/>
             <strong>TIMESTAMP:</strong> ${new Date().toLocaleString()}<br/>
-            <strong>OPERATOR COMPILATION:</strong> Fraud$core Live Telemetry Voice Node
+            <strong>OPERATOR COMPILATION:</strong> Fraud$core Voice Scan Assistant
           </div>
-          <div class="section-title">Forensic Assessment Metrics</div>
+          <div class="section-title">Assessment Metrics</div>
           <div class="grid">
             <div class="card">
-              <strong>Threat Probability Score:</strong> <span style="font-size: 18px; color: #ef4444; font-weight: bold;">${threatScore}%</span>
+              <strong>Scam Risk Score:</strong> <span style="font-size: 18px; color: #ef4444; font-weight: bold;">${threatScore}%</span>
             </div>
             <div class="card">
-              <strong>Coercion Severity Level:</strong> <span class="badge badge-danger">${riskLevel}</span>
+              <strong>Risk Level:</strong> <span class="badge badge-danger">${riskLevel}</span>
             </div>
           </div>
-          <div class="section-title">Extracted Speech Transcript</div>
+          <div class="section-title">Conversation Transcript</div>
           <div class="transcript">${transcript || "No transcript collected."}</div>
-          <div class="section-title">Indicators Flagged</div>
+          <div class="section-title">Warning Signs Found</div>
           <ul>
-            ${detectedIndicators.govAuthority ? '<li>[X] Fake Government Authority Impersonation</li>' : ''}
-            ${detectedIndicators.digitalArrest ? '<li>[X] Digital Arrest / Legal Prosecution Threat</li>' : ''}
-            ${detectedIndicators.moneyTransfer ? '<li>[X] Urgent Money Transfer / Verification Demand</li>' : ''}
-            ${detectedIndicators.otpRequest ? '<li>[X] OTP / Password Compromise Request</li>' : ''}
+            ${detectedIndicators.govAuthority ? '<li>[X] Pretended to be a police or government officer</li>' : ''}
+            ${detectedIndicators.digitalArrest ? '<li>[X] Tried to scare you with legal threats</li>' : ''}
+            ${detectedIndicators.moneyTransfer ? '<li>[X] Asked you to send money immediately</li>' : ''}
+            ${detectedIndicators.otpRequest ? '<li>[X] Asked for your bank or personal details</li>' : ''}
             ${detectedIndicators.urgency ? '<li>[X] High Fear and Urgency Conditioning</li>' : ''}
-            ${detectedIndicators.isolation ? '<li>[X] Isolation Techniques / Close Room Demand</li>' : ''}
+            ${detectedIndicators.isolation ? '<li>[X] Told you not to end the call</li>' : ''}
           </ul>
-          <div class="section-title">Executive Action Blueprint</div>
+          <div class="section-title">What You Should Do</div>
           <ul>
             ${finalReport?.recommendations.map(r => `<li>${r}</li>`).join('') || '<li>Dial Helpline 1930 immediately.</li>'}
           </ul>
@@ -428,7 +428,7 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
               <Shield className="w-5 h-5" />
             </div>
             <div className="text-left font-mono">
-              <h3 className="text-sm font-bold text-white leading-none">Fraud$core Live Voice Assessment</h3>
+              <h3 className="text-sm font-bold text-white leading-none">Fraud$core Live Voice Scan</h3>
               <span className="text-[9px] text-[#94a3b8] uppercase tracking-wider block mt-0.5">
                 AI-Powered Fraud Intelligence Platform
               </span>
@@ -515,7 +515,7 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
                 {/* Live indicators checklist */}
                 <div className="p-4 bg-[#111827] border border-[#334155] rounded-xl space-y-3">
                   <span className="block text-[10px] font-mono font-bold text-[#94a3b8] uppercase tracking-wider">
-                    Extracted Scam Indicators
+                    Scam Warning Signs
                   </span>
 
                   <div className="grid grid-cols-2 gap-2 text-[10px] font-mono">
@@ -523,7 +523,7 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
                       detectedIndicators.govAuthority ? 'bg-red-500/10 border-red-500/30 text-red-400 font-bold' : 'bg-[#1e293b] border-[#334155] text-[#94a3b8]'
                     }`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${detectedIndicators.govAuthority ? 'bg-red-500 animate-pulse' : 'bg-slate-600'}`}></span>
-                      <span className="truncate">Gov Impersonation</span>
+                      <span className="truncate">Fake Officer</span>
                     </div>
 
                     <div className={`p-2 border rounded-lg transition-all duration-150 flex items-center gap-1.5 ${
@@ -537,7 +537,7 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
                       detectedIndicators.moneyTransfer ? 'bg-red-500/10 border-red-500/30 text-red-400 font-bold' : 'bg-[#1e293b] border-[#334155] text-[#94a3b8]'
                     }`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${detectedIndicators.moneyTransfer ? 'bg-red-500 animate-pulse' : 'bg-slate-600'}`}></span>
-                      <span className="truncate">Money Transfer</span>
+                      <span className="truncate">Money Request</span>
                     </div>
 
                     <div className={`p-2 border rounded-lg transition-all duration-150 flex items-center gap-1.5 ${
@@ -551,14 +551,14 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
                       detectedIndicators.urgency ? 'bg-red-500/10 border-red-500/30 text-red-400 font-bold' : 'bg-[#1e293b] border-[#334155] text-[#94a3b8]'
                     }`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${detectedIndicators.urgency ? 'bg-red-500 animate-pulse' : 'bg-slate-600'}`}></span>
-                      <span className="truncate">Fear & Urgency</span>
+                      <span className="truncate">Intimidation</span>
                     </div>
 
                     <div className={`p-2 border rounded-lg transition-all duration-150 flex items-center gap-1.5 ${
                       detectedIndicators.isolation ? 'bg-red-500/10 border-red-500/30 text-red-400 font-bold' : 'bg-[#1e293b] border-[#334155] text-[#94a3b8]'
                     }`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${detectedIndicators.isolation ? 'bg-red-500 animate-pulse' : 'bg-slate-600'}`}></span>
-                      <span className="truncate">Isolation tactic</span>
+                      <span className="truncate">Isolation</span>
                     </div>
                   </div>
                 </div>
@@ -566,21 +566,21 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
                 {/* Transcript visual feed */}
                 <div className="flex-1 bg-[#111827] border border-[#334155] rounded-xl p-4 flex flex-col justify-between min-h-[160px]">
                   <span className="block text-[10px] font-mono font-bold text-[#94a3b8] uppercase tracking-wider mb-2">
-                    Live Transcript Input
+                    Conversation Transcript
                   </span>
                   <div className="flex-1 overflow-y-auto text-xs text-slate-300 italic max-h-[120px] custom-scrollbar text-left leading-relaxed">
-                    {transcript || "Speak into your microphone to begin transcribing..."}
+                    {transcript || "Speak into your microphone to begin typing the conversation..."}
                   </div>
                 </div>
 
                 {/* Real-time calculated score indicator */}
                 <div className="p-4 bg-[#111827] border border-[#334155] rounded-xl flex items-center justify-between text-xs font-mono">
                   <div>
-                    <span className="text-[#94a3b8] text-[9px] uppercase font-bold">Threat Probability</span>
+                    <span className="text-[#94a3b8] text-[9px] uppercase font-bold">Scam Risk Score</span>
                     <span className="text-white text-base font-bold block mt-0.5">{threatScore}%</span>
                   </div>
                   <div>
-                    <span className="text-[#94a3b8] text-[9px] uppercase font-bold">Confidence</span>
+                    <span className="text-[#94a3b8] text-[9px] uppercase font-bold">AI Confidence</span>
                     <span className="text-[#38bdf8] text-base font-bold block mt-0.5">{confidence}%</span>
                   </div>
                   <div>
@@ -598,19 +598,19 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
               {!finalReport ? (
                 <div className="p-8 text-center flex flex-col items-center justify-center flex-1 space-y-3">
                   <RefreshCw className="w-8 h-8 text-[#3b82f6] animate-spin" />
-                  <span className="font-bold text-white">Compiling Final AI Forensic Dossier...</span>
+                  <span className="font-bold text-white">Creating Scam Analysis Report...</span>
                 </div>
               ) : (
                 <div className="space-y-5 flex-1 flex flex-col justify-between">
                   {/* Assessment metrics */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 bg-[#111827] border border-[#334155] rounded-xl text-center">
-                      <span className="text-[#94a3b8] font-mono text-[9px] uppercase font-bold block">Final Threat Score</span>
+                      <span className="text-[#94a3b8] font-mono text-[9px] uppercase font-bold block">Scam Risk Score</span>
                       <span className="text-2xl font-extrabold text-[#ef4444] block mt-1 font-mono">{threatScore}%</span>
                     </div>
 
                     <div className="p-4 bg-[#111827] border border-[#334155] rounded-xl text-center">
-                      <span className="text-[#94a3b8] font-mono text-[9px] uppercase font-bold block">Scam Category</span>
+                      <span className="text-[#94a3b8] font-mono text-[9px] uppercase font-bold block">Scam Type</span>
                       <span className="text-sm font-bold text-white block mt-2 truncate">{finalReport.category}</span>
                     </div>
 
@@ -623,11 +623,11 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
                   {/* Investigation Summary Sheet */}
                   <div className="p-4 bg-[#111827] border border-[#334155] rounded-xl text-left space-y-2">
                     <span className="block text-[10px] font-mono font-bold text-[#38bdf8] uppercase tracking-wider">
-                      Fraud$core Investigation Summary
+                      Fraud$core Summary
                     </span>
                     <p className="text-slate-300 leading-relaxed font-sans text-xs">
                       {finalReport.patterns && finalReport.patterns.length > 0
-                        ? `Coercion semantic vectors identified: ${finalReport.patterns.join(', ')}.`
+                        ? `Scam warning signals identified: ${finalReport.patterns.join(', ')}.`
                         : "Speech patterns indicate strong indicators of a Digital Arrest scam where the caller falsely impersonates legal government authorities to coerce immediate payment."}
                     </p>
                   </div>
@@ -635,7 +635,7 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
                   {/* Recommendations */}
                   <div className="p-4 bg-[#f59e0b]/5 border border-[#f59e0b]/20 rounded-xl text-left space-y-2.5">
                     <span className="block text-[10px] font-mono font-bold text-[#f59e0b] uppercase tracking-wider flex items-center gap-1.5">
-                      <AlertTriangle className="w-4 h-4" /> Recommended Safety Actions
+                      <AlertTriangle className="w-4 h-4" /> What You Should Do
                     </span>
                     <ul className="space-y-1 text-slate-300 text-xs list-disc list-inside">
                       {finalReport.recommendations.map((rec, index) => (
@@ -659,7 +659,7 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
                       className="py-3 bg-[#111827] hover:bg-[#1e293b] border border-[#334155] text-slate-200 font-bold rounded-xl flex items-center justify-center gap-2 transition duration-150"
                     >
                       {savedReport ? <Check className="w-4 h-4 text-[#22c55e]" /> : <Save className="w-4 h-4" />}
-                      <span>{savedReport ? 'Report Saved' : 'Save Investigation'}</span>
+                      <span>{savedReport ? 'Report Saved' : 'Save Report'}</span>
                     </button>
 
                     <button
@@ -678,7 +678,7 @@ export const LiveVoiceAnalysisModal: React.FC<LiveVoiceAnalysisModalProps> = ({ 
 
         {/* Active status footer */}
         <div className="p-3 border-t border-[#334155] bg-[#0c121e] text-center text-[9px] text-[#94a3b8]/60 font-mono">
-          FRAUD$CORE VOICESCAN INTERCEPT PLATFORM. ENCRYPTED & SECURED.
+          FRAUD$CORE CYBER SAFETY ASSISTANT. PRIVATE & SECURED.
         </div>
       </div>
     </div>
