@@ -1,186 +1,186 @@
-Fraud$core – AI-Powered Fraud Intelligence Platform
+# Fraud$core - AI-Powered Fraud Intelligence Platform
 
-Protecting Citizens from Digital Arrest & Cyber Fraud using AI
+> Protecting citizens from Digital Arrest scams and cyber fraud using Artificial Intelligence.
 
-Fraud$core is an AI-powered web platform that helps citizens identify Digital Arrest scams and other cyber frauds before they become victims. Using Google's Gemini AI, the platform analyzes conversations, voice recordings, screenshots, PDFs, and text to detect suspicious patterns, explain why a conversation may be fraudulent, and generate an evidence report that users can use while reporting incidents to the official cybercrime authorities.
+## 📌 Overview
 
-🚀 Features
-🔍 AI Scam Detection
-Analyze conversation text
-Live Voice Analysis
-AI-powered scam detection using Google Gemini
-Detect Digital Arrest scams and other cyber frauds
-📊 AI Analysis Report
-Threat Score
-AI Confidence Score
-Scam Category
-Warning Signs
-AI Explanation
-Personalized Safety Recommendations
-📁 Evidence Generator
-Generate structured evidence reports
-Upload supporting files
-Audio
-Images
-PDFs
-Screenshots
-Download evidence report
-Prepare evidence before reporting
-🤖 AI Fraud Assistant
-Interactive AI chatbot
-Cyber safety awareness
-Scam prevention guidance
-Digital fraud education
-📈 Intelligence Dashboard
-Scam statistics
-Threat visualization
-Fraud trends
-AI insights
-Problem Statement
+Fraud$core is an AI-powered web application designed to help citizens identify Digital Arrest scams and other cyber frauds before they become victims. The platform analyzes conversations, voice recordings, screenshots, PDFs, and text using Google Gemini AI to detect scam patterns and generate an evidence report.
 
-Digital Arrest scams have become one of the fastest-growing cybercrimes in India.
+Instead of directly submitting complaints, Fraud$core helps users prepare evidence that can be used while reporting through the official Cyber Crime Portal or Helpline 1930.
 
-Fraudsters impersonate:
+---
 
-Police Officers
-CBI Officials
-ED Officers
-RBI Officials
-Cyber Crime Officers
+## ✨ Features
 
-Victims are manipulated through fear, urgency, and fake legal threats into transferring money or revealing sensitive information.
+- 🎙️ Live Voice Analysis
+- 🤖 AI-powered Scam Detection using Google Gemini
+- 📄 Conversation Scanner
+- 📊 Threat Score & AI Confidence
+- 🚨 Warning Signs Detection
+- 📁 Evidence Report Generator
+- 📷 Upload Images, PDFs & Audio
+- 💬 AI Fraud Assistant
+- 📈 Intelligence Dashboard
+- 🌐 Responsive Modern UI
 
-Fraud$core helps identify these scams before financial loss occurs.
+---
 
-How It Works
-Conversation / Voice / Screenshot / PDF
-                │
-                ▼
-      Speech-to-Text (if audio)
-                │
-                ▼
-       Google Gemini AI Analysis
-                │
-                ▼
-     Scam Pattern Identification
-                │
-                ▼
-      Threat Score & AI Reasoning
-                │
-                ▼
-      Evidence Report Generation
-                │
-                ▼
- User Reports via Official Channels
-Technology Stack
-Frontend
-React
-TypeScript
-Vite
-Tailwind CSS
-AI
-Google Gemini API (@google/genai)
-Browser APIs
-Web Speech API
-MediaRecorder API
-UI
-Lucide Icons
-Framer Motion
-Responsive Design
-Key Capabilities
-Live Voice Analysis
-Conversation Scanner
-Explainable AI Results
-Scam Pattern Detection
-Threat Scoring
-AI Confidence Score
-Evidence Upload
-Evidence Report Generator
-Cyber Safety Assistant
-Government-inspired User Interface
-Evidence-Based Reporting
+## 🛠️ Tech Stack
 
-Fraud$core does not submit complaints directly to any government agency.
+### Frontend
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
 
-Instead, it helps users:
+### AI
+- Google Gemini API (`@google/genai`)
 
-Organize scam evidence
-Generate a structured evidence report
-Download the report
-Report the incident through:
-National Cyber Crime Helpline 1930
-https://cybercrime.gov.in
+### Browser APIs
+- Web Speech API
+- MediaRecorder API
 
-This evidence-first workflow reduces false reporting while helping genuine victims prepare accurate reports.
+### UI Libraries
+- Framer Motion
+- Lucide React
 
-Project Structure
-src/
-│
-├── components/
-│   ├── common/
-│   ├── layout/
-│   └── dashboard/
-│
-├── pages/
-│   ├── LandingPage
-│   ├── ScamAnalyzerPage
-│   ├── PoliceDashboardPage
-│   ├── AboutDigitalArrestPage
-│   └── AiAssistantPage
-│
-├── services/
-│   ├── geminiService.ts
-│   └── scamAnalysisService.ts
-│
-├── types/
-└── assets/
-Installation
+---
 
-Clone the repository:
+## ⚙️ Installation
 
+Clone the repository
+
+```bash
 git clone https://github.com/Hasini2706/FraudCore.git
+```
 
-Navigate to the project:
+Go into the project directory
 
+```bash
 cd FraudCore
+```
 
-Install dependencies:
+Install dependencies
 
+```bash
 npm install
+```
 
-Create a .env file:
+Create a `.env` file
 
+```env
 VITE_GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+```
 
-Run the development server:
+Run the development server
 
+```bash
 npm run dev
+```
 
-Build for production:
+Build the project
 
+```bash
 npm run build
-Future Scope
-Android & iOS application
-Regional language support
-OCR for fake legal notices
-WhatsApp integration
-Real-time phone call protection
-AI voice emotion analysis
-Cybercrime trend prediction
-Integration with official reporting platforms
-Disclaimer
+```
 
-Fraud$core is an educational and AI-assisted fraud detection platform.
+---
 
-The platform does not replace law enforcement or government cybercrime agencies and does not automatically file complaints. Users should report verified incidents through the official National Cyber Crime Portal or by calling 1930.
+## 🚀 How It Works
 
-Team
+```
+Conversation / Voice / PDF / Image
+                │
+                ▼
+        Speech-to-Text
+                │
+                ▼
+      Google Gemini AI
+                │
+                ▼
+     Scam Pattern Analysis
+                │
+                ▼
+ Threat Score & AI Insights
+                │
+                ▼
+   Evidence Report Generator
+                │
+                ▼
+ Report through 1930 or
+ cybercrime.gov.in
+```
 
-Fraud$core
-AI-Powered Fraud Intelligence Platform
+---
 
-Built for Digital Public Safety Hackathon 2026.
+## 📂 Project Structure
 
-⭐ Support
+```
+FraudCore/
+│
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── common/
+│   │   ├── layout/
+│   │   └── dashboard/
+│   ├── pages/
+│   ├── services/
+│   ├── types/
+│   ├── utils/
+│   └── App.tsx
+│
+├── .env.example
+├── package.json
+├── vite.config.ts
+└── README.md
+```
 
-If you found this project useful, consider giving it a ⭐ Star on GitHub to support our work and encourage further development.
+---
+
+## 📋 Workflow
+
+1. Upload or record a conversation.
+2. AI analyzes the content.
+3. Detects possible scam patterns.
+4. Displays:
+   - Scam Type
+   - Threat Score
+   - AI Confidence
+   - Warning Signs
+5. Generates an evidence report.
+6. User can download the report and report the incident through official channels.
+
+---
+
+## 🔮 Future Enhancements
+
+- Android & iOS App
+- Regional Language Support
+- OCR for Fake Legal Notices
+- WhatsApp Integration
+- Live Call Protection
+- AI Voice Emotion Detection
+- Cybercrime Trend Analysis
+- Official API Integration
+
+---
+
+## ⚠️ Disclaimer
+
+Fraud$core is an AI-assisted fraud detection and awareness platform.
+
+It does **not** automatically submit complaints to government agencies. Users should report verified incidents through the National Cyber Crime Helpline (**1930**) or the official Cyber Crime Portal.
+
+---
+
+## 👨‍💻 Team
+
+Developed for the **Digital Public Safety Hackathon 2026**.
+
+---
+
+## ⭐ Support
+
+If you like this project, consider giving it a ⭐ on GitHub!
